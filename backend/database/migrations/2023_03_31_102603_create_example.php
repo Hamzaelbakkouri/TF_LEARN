@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('syntaxes', function (Blueprint $table) {
-            $table->dropColumn('id_cat');
+        Schema::create('example', function (Blueprint $table) {
+            $table->id();
+            $table->text('example');
+            $table->text('role');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('syntaxes', function (Blueprint $table) {
-            $table->integer('id_cat');
-        });
+        Schema::dropIfExists('example');
     }
 };

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('syntaxes', function (Blueprint $table) {
-            $table->foreignId('id_languge')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('id_language')->references('id')->on('languages')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

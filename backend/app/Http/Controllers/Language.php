@@ -21,6 +21,7 @@ class Language extends Controller
         $Languages->save();
         return "added";
     }
+    
     public function modifierCat($id,Request $request)
     {
         $Languages=Languages::find($id);

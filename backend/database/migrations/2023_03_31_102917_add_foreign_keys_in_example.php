@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Syntaxes', function (Blueprint $table) {
-            $table->id();
-            $table->string('syntaxe');
-            $table->Integer('isArchived');
-            $table->timestamps();
+        Schema::table('example', function (Blueprint $table) {
+            $table->foreignId('id_syntaxe')->references('id')->on('Syntaxes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('syntaxes');
+        Schema::table('example', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -23,7 +23,7 @@ class UserFactory extends Factory
             'prenom' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'role' => $this->faker->randomElement([0,1]),
         ];
     }

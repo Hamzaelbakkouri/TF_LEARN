@@ -17,12 +17,12 @@ class Users extends Controller
     public function login(Request $request)
     {
         $pass = DB::table('Users')->where('email', $request->input('email'))->value('password');
-        if(Hash::check($request->input('password'),$pass)){
-        $user = DB::table('Users')->where('email', $request->input('email'))->first();
-        $response = [
-            'user' => $user
-        ];
-        return $response;
+        if (Hash::check($request->input('password'), $pass)) {
+            $user = DB::table('Users')->where('email', $request->input('email'))->first();
+            $response = [
+                'user' => $user
+            ];
+            return $response;
         }
     }
 
@@ -107,11 +107,9 @@ class Users extends Controller
         return 'deleted';
     }
 
-
-
     public function getLivrebyDate($date)
     {
-        return Syntaxes::select('Syntaxes.id', 'Syntaxes.nom AS nom_livre','Syntaxes.created_at', 'Languages.nom AS nom_cat')
+        return Syntaxes::select('Syntaxes.id', 'Syntaxes.nom AS nom_livre', 'Syntaxes.created_at', 'Languages.nom AS nom_cat')
             ->join('Languages', 'Languages.id_cat', '=', 'Languages.id')
             ->where('Syntaxes.isArchived', '=', 0)
             ->where('Syntaxes.created_at', '=', $date)
@@ -189,7 +187,7 @@ class Users extends Controller
                 $join->on('groups.id', '=', 'membres.id_group')
                     ->where('membres.id_user', '=', $id);
             })
-            ->select('groups.id', 'groups.nom', 'groups.description','groups.image', 'groups.created_at', 'users.nom as nom_user', 'membres.id as id_membre')
+            ->select('groups.id', 'groups.nom', 'groups.description', 'groups.image', 'groups.created_at', 'users.nom as nom_user', 'membres.id as id_membre')
             ->join('users', 'users.id', '=', 'groups.id_user')
             ->get();
     }

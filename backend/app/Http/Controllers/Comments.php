@@ -9,12 +9,12 @@ class Comment extends Controller
 {
     public function sendMessage(Request $request){
         $message=new Comments();
-        $message->id_group=$request->idgroup;
+        $message->id_language=$request->idlanguage;
         $message->id_user=$request->iduser;
-        $message->message=$request->message;
+        $message->Comment=$request->Comment;
         $message->save();
     }
-
+    
     public function getmessages($id){
         return Comments::select('Comments.message','Comments.id','users.nom','users.prenom','Comments.id_user')
         ->join('users','users.id','Comments.id_user')
