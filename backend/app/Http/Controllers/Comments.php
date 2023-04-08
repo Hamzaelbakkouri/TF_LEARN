@@ -7,12 +7,13 @@ use App\Models\Comments;
 
 class Comment extends Controller
 {
-    public function sendMessage(Request $request){
+    public function sendcomments(Request $request){
         $message=new Comments();
         $message->id_language=$request->idlanguage;
         $message->id_user=$request->iduser;
         $message->Comment=$request->Comment;
         $message->save();
+        return 'send';
     }
     
     public function getmessages($id){
