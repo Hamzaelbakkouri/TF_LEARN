@@ -47,7 +47,7 @@ class Users extends Controller
             $user->prenom = $request->input('prenom');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->role = 0;
+            $user->role = 1;
             $user->save();
             return 'inserted';
         }

@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Sidebar from './components/admin/Sidebar.jsx'
 import Footer from "./components/Footer";
 import NotFound from "./pages/admin/NotFound.jsx";
-import Home from "./pages/admin/home.jsx";
+import Statistique from "./pages/admin/Statistique.jsx";
 import Language_d from "./pages/admin/Language_d.jsx";
 import Users from "./pages/admin/users.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import UserBar from "./components/UserBar.jsx";
 import Cookies from "universal-cookie";
+import Home from "./pages/users/Home.jsx";
 
 const cooki = new Cookies();
 
 
 function App() {
+  // const navigate = useNavigate();
   const [role, setRole] = useState();
   const cookis = cooki.get('login');
 
   useEffect(() => {
-    setRole(cookis.user.role)
+    if (cookis) {
+      setRole(cookis.user.role)
+    }
   }, [])
 
   return (
@@ -28,7 +32,8 @@ function App() {
         <div className="flex flex-col">
           {(role === 0) ? <Sidebar /> : <UserBar />}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home/>} />
+            <Route path="/Statistique" element={<Statistique />} />
             <Route path="/admin/languages" element={<Language_d />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="*" element={<NotFound />} />

@@ -1,11 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
-    BellIcon,
-    ClockIcon,
-    CreditCardIcon,
     MenuAlt1Icon,
-    ShieldCheckIcon,
     XIcon,
     UsersIcon,
     ChartBarIcon,
@@ -19,11 +15,10 @@ import {
 import { NavLink, useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 
-const cooki = new Cookies();
 
 
 const navigation = [
-    { name: 'Statistique', href: '/admin/home', icon: ChartBarIcon, current: false },
+    { name: 'Statistique', href: '/statistique', icon: ChartBarIcon, current: false },
     { name: 'Users', href: '/admin/users', icon: UsersIcon, current: false },
     { name: 'Languages', href: '/admin/languages', icon: DesktopComputerIcon, current: false },
 ]
@@ -40,18 +35,15 @@ function classNames(...classes) {
 
 export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const navige = useNavigate();
-    const cookis = cooki.get('login');
-    
+    // const navige = useNavigate();
+
+    const cooki = new Cookies();
+
     const Logout = () => {
         cooki.remove('login');
-        navige('/login');
+        window.location.href = '/login';
     }
     
-    if (!cookis && cookis.role != 0) {
-        navige('/login');
-    }
-
     return (
         <>
             <div className="min-h-full">

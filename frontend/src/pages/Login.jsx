@@ -1,24 +1,24 @@
 
 import { LockClosedIcon } from '@heroicons/react/solid'
-// import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setEmail, setPassword, loginUser, logoutUser } from '../redux/Slices/login';
-import { useState } from 'react';
+import { setEmail, setPassword, loginUser , loginUserSuccess} from '../redux/Slices/login';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const dispatch = useDispatch();
-    const [Loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        // console.log('test');
         dispatch(loginUser());
     };
+    // useEffect(() => {
+    //     if (loginUserSuccess) {
+    //         navigate('/statistique');
+    //     }
+    // },[])
 
-    //   const handleLogout = () => {
-    //     dispatch(logoutUser());
-    //   };
     return (
         <>
             <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -37,7 +37,7 @@ export default function Login() {
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
-                                <label  className="sr-only">
+                                <label className="sr-only">
                                     Email address
                                 </label>
                                 <input
