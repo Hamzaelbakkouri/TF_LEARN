@@ -1,19 +1,21 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { BellIcon, MenuIcon, XIcon , UserIcon} from '@heroicons/react/outline'
 import Cookies from 'universal-cookie'
+import { useNavigate } from 'react-router-dom';
 
 const cookies = new Cookies();
 const cooki = cookies.get('login');
+
 const user = {
-    name: cooki.nom,
-    email: cooki.email,
+    name: 'hamza',
+    email: 'hamza@gmail.com',
     imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        'https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
 }
 const navigation1 = [
-    { name: 'Dashboard', href: '#', current: true },
+    { name: 'Home', href: '#', current: true },
     { name: 'About', href: '#', current: false },
     { name: 'Languages', href: '#', current: false },
     { name: 'Favorites', href: '#', current: false },
@@ -32,8 +34,8 @@ const userNavigation1 = [
 ]
 
 const userNavigation2 = [
-    { name: 'Login', href: '#' },
-    { name: 'Register', href: '#' },
+    { name: 'Login', href: '/login' },
+    { name: 'Register', href: '/register' },
 ]
 
 function classNames(...classes) {
@@ -41,10 +43,15 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+
+    const logout = () => {
+        cookies.remove('login');
+        window.location.href = '/';
+    }
     return (
         <>
             <div className="min-h-full">
-                <div className="bg-[#000003] pb-32">
+                <div className="bg-[#000003] pb-8">
                     <Disclosure as="nav" className="bg-[#000003]">
                         {({ open }) => (
                             <>
@@ -52,12 +59,13 @@ export default function Example() {
                                     <div className="border-b border-gray-700">
                                         <div className="flex items-center justify-between h-16 px-4 sm:px-0">
                                             <div className="flex items-center">
-                                                <div className="flex-shrink-0">
+                                                <div className="flex items-center pr-16">
                                                     <img
-                                                        className="h-auto w-36"
+                                                        className="h-auto w-14"
                                                         src={process.env.PUBLIC_URL + '/pictures/logo.png'}
                                                         alt="Workflow"
                                                     />
+                                                    <p className='pt-3 text-white'>TF_LEARN</p>
                                                 </div>
                                                 <div className="hidden md:block">
                                                     <div className="ml-10 flex items-baseline space-x-4">
@@ -67,7 +75,7 @@ export default function Example() {
                                                                 href={item.href}
                                                                 className={classNames(
                                                                     item.current
-                                                                        ? 'bg-gray-900 text-white'
+                                                                        ? 'bg-[#000000] text-white'
                                                                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                                     'px-3 py-2 rounded-md text-sm font-medium'
                                                                 )}
@@ -85,7 +93,7 @@ export default function Example() {
                                                         <div>
                                                             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                 <span className="sr-only">Open user menu</span>
-                                                                <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                                <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="..." />
                                                             </Menu.Button>
                                                         </div>
                                                         <Transition
@@ -98,7 +106,7 @@ export default function Example() {
                                                             leaveTo="transform opacity-0 scale-95"
                                                         >
                                                             <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                                {userNavigation1.map((item) => (
+                                                                {(cooki ? userNavigation1 : userNavigation2).map((item) => (
                                                                     <Menu.Item key={item.name}>
                                                                         {({ active }) => (
                                                                             <a
@@ -111,8 +119,12 @@ export default function Example() {
                                                                                 {item.name}
                                                                             </a>
                                                                         )}
+                                                                        
                                                                     </Menu.Item>
                                                                 ))}
+                                                                {cooki ?<a onClick={()=>logout()} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer'>
+                                                                            Logout
+                                                                        </a>: ''}
                                                             </Menu.Items>
                                                         </Transition>
                                                     </Menu>
@@ -135,7 +147,7 @@ export default function Example() {
 
                                 <Disclosure.Panel className="border-b border-gray-700 md:hidden">
                                     <div className="px-2 py-3 space-y-1 sm:px-3">
-                                        {navigation1.map((item) => (
+                                        {(cooki ? navigation1 : navigation2).map((item) => (
                                             <Disclosure.Button
                                                 key={item.name}
                                                 as="a"
@@ -156,8 +168,8 @@ export default function Example() {
                                                 <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                                             </div>
                                             <div className="ml-3">
-                                                <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                                                <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                                                {/* <div className="text-base font-medium leading-none text-white">{user.name}</div>
+                                                <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div> */}
                                             </div>
                                             <button
                                                 type="button"
@@ -168,7 +180,7 @@ export default function Example() {
                                             </button>
                                         </div>
                                         <div className="mt-3 px-2 space-y-1">
-                                            {userNavigation1.map((item) => (
+                                            {(cooki ? userNavigation1 : userNavigation2).map((item) => (
                                                 <Disclosure.Button
                                                     key={item.name}
                                                     as="a"

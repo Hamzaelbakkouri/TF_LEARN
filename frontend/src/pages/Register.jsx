@@ -1,7 +1,25 @@
-
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { addItem } from './dataSlice';
 
 export default function Register() {
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const [item, setItem] = useState('');
+
+    const handleInputChange = (event) => {
+        setItem(event.target.value);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        await dispatch(addItem({ item }));
+        setLoading(false);
+        setItem('');
+    };
+
     return (
         <>
             <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
@@ -19,7 +37,7 @@ export default function Register() {
                     <form className="mt-8 space-y-6" action="#" method="POST">
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
-                            
+
                             <div>
                                 <label className="sr-only">
                                     UserName

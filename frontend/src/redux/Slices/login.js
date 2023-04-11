@@ -12,7 +12,6 @@ export const loginUser = () => async (dispatch, getState) => {
     data.append('password', password);
 
     try {
-
         const { status, data: res } = await axios.post('http://127.0.0.1:8000/api/login', data);
         cooki.set('login', res);
 

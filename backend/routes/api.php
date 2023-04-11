@@ -6,6 +6,7 @@ use App\Http\Controllers\admin;
 use App\Http\Controllers\Language;
 use App\Http\Controllers\Syntaxe;
 use App\Http\Controllers\Comment;
+use App\Http\Controllers\Examples;
 
 // connect
 Route::post('/login', [Users::class, 'login']);
@@ -17,14 +18,19 @@ Route::get('/syntaxe/getsyntaxe/{id}', [Syntaxe::class, 'getsyntaxe']);
 Route::post('/syntaxe/updatesyntaxe', [syntaxe::class, 'updatesyntaxe']);
 Route::patch('/syntaxe/supprimersyntaxe/{syntaxe}', [syntaxe::class, 'supprimersyntaxe']);
 
+// examples
+Route::post('/syntaxe/addexample', [Examples::class, 'add_example']);
+Route::get('/syntaxe/getexample/{id}', [Examples::class, 'get_S_examples']);
+Route::get('/syntaxe/get_ALL_example/', [Examples::class, 'get_all_examples']);
+
 // languages
 Route::delete('/language/deletelanguage/{id}', [Language::class, 'supprimerCat']);
 Route::post('/language/addlanguage', [Language::class, 'addCat']);
 Route::patch('/language/updatelanguage/{id}', [Language::class, 'modifierCat']);
 
 // comments
-Route::get('/comments/{id}', [Comment::class, 'getcomments']);
-Route::post('/comments', [Comment::class, 'sendcomments']);
+Route::get('/getcomments/{id}', [Comment::class, 'getcomments']);
+Route::post('/send/comment', [Comment::class, 'sendcomments']);
 
 // admin
 Route::get('/admin/getsyntaxes', [admin::class, 'getSyntaxes']);

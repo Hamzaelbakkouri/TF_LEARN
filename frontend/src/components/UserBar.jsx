@@ -2,21 +2,18 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { DotsVerticalIcon } from '@heroicons/react/solid'
+import { DotsVerticalIcon, DocumentIcon } from '@heroicons/react/solid'
 import NavBar from './NavBar';
 
 const tabs = [
     { name: 'All', href: '#', current: true },
-    { name: 'Online', href: '#', current: false },
-    { name: 'Offline', href: '#', current: false },
 ]
 const team = [
     {
-        name: 'Leslie Alexander',
-        handle: 'lesliealexander',
+        name: 'javascript',
         href: '#',
         imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/512px-Unofficial_JavaScript_logo_2.svg.png',
         status: 'online',
     },
 ]
@@ -31,12 +28,13 @@ export default function UserBar() {
     return (
         <div>
             <NavBar />
-            <button onClick={()=>setOpen(true)}>click</button>
+            <div className='w-full flex justify-start'>
+                <div className='w-10 cursor-pointer' onClick={() => setOpen(true)}><DocumentIcon /></div>
+            </div>
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="fixed inset-0 overflow-hidden" onClose={setOpen}>
                     <div className="absolute inset-0 overflow-hidden">
                         <Dialog.Overlay className="absolute inset-0" />
-
                         <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
                             <Transition.Child
                                 as={Fragment}
@@ -51,7 +49,7 @@ export default function UserBar() {
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="p-6">
                                             <div className="flex items-start justify-between">
-                                                <Dialog.Title className="text-lg font-medium text-gray-900"> Team </Dialog.Title>
+                                                <Dialog.Title className="text-lg font-medium text-gray-900">Languages</Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
@@ -103,7 +101,6 @@ export default function UserBar() {
                                                                 </span>
                                                                 <div className="ml-4 truncate">
                                                                     <p className="truncate text-sm font-medium text-gray-900">{person.name}</p>
-                                                                    <p className="truncate text-sm text-gray-500">{'@' + person.handle}</p>
                                                                 </div>
                                                             </div>
                                                         </a>

@@ -2,7 +2,6 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux';
 import { setEmail, setPassword, loginUser , loginUserSuccess} from '../redux/Slices/login';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -13,11 +12,10 @@ export default function Login() {
         e.preventDefault();
         dispatch(loginUser());
     };
-    // useEffect(() => {
-    //     if (loginUserSuccess) {
-    //         navigate('/statistique');
-    //     }
-    // },[])
+
+        if (loginUserSuccess) {
+            navigate('/statistique');
+        }
 
     return (
         <>
