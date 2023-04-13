@@ -3,8 +3,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLanguage } from '../../redux/Slices/language';
-import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
+import { addlanguage } from '../../redux/Slices/Addlanguages';
+import { editlanguage } from '../../redux/Slices/editLanguage';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
+
+
+const apiKey = '654492469283666'
+const API_BASE_URL = 'https://api.cloudinary.com/v1_1/dy9tuum8j/auto/upload';
 
 
 const Language_d = () => {
@@ -12,11 +19,81 @@ const Language_d = () => {
   const cookie = new Cookies();
   const cooki = cookie.get('login');
   const navigate = useNavigate();
-  
-  // console.log();
-    if (!cooki ||!cooki.user || cooki.user.role !== 0) {
-      navigate('/');
+
+  if (!cooki || !cooki.user || cooki.user.role !== 0) {
+    navigate('/');
+  }
+  //Add language
+  const dispatch = useDispatch();
+  const [name, setName] = useState();
+  const [image, setImage] = useState();
+  const changeImage = (e) => {
+    setImage(e.target.files[0])
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data: cloudinary } = await axios.get('http://127.0.0.1:8000/api/cloudinary/signature')
+      const form = new FormData();
+      form.append('api_key', apiKey)
+      form.append('signature', cloudinary.signature)
+      form.append('timestamp', cloudinary.timestamp)
+      form.append('folder', 'uploads')
+      form.append('file', image)
+
+      const { data: uploadResult } = await axios.post(API_BASE_URL, form)
+      const lastData = new FormData();
+      lastData.append('nom', name)
+      lastData.append('image', uploadResult.secure_url);
+      dispatch(addlanguage(lastData))
+
+    } catch {
+      console.log('thala');
     }
+  }
+  //end add language 
+
+  //delete
+  const delete_language = async (id) => {
+    await axios.delete('http://127.0.0.1:8000/api/language/deletelanguage/' + id)
+      .then(() => {
+        dispatsh(fetchLanguage());
+      })
+  }
+  //end delete
+
+  //edit
+  const [editName, setEditName] = useState();
+  const [imageEdit, setEditIamge] = useState();
+  const EditImage = (e) => {
+    setEditIamge(e.target.files[0])
+  }
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    const id = localStorage.getItem('idL')
+
+    try {
+      const { data: cloudinary } = await axios.get('http://127.0.0.1:8000/api/cloudinary/signature')
+      const form = new FormData();
+      form.append('api_key', apiKey)
+      form.append('signature', cloudinary.signature)
+      form.append('timestamp', cloudinary.timestamp)
+      form.append('folder', 'uploads')
+      form.append('file', imageEdit)
+
+      const { data: uploadResult } = await axios.post(API_BASE_URL, form)
+      const edit = new FormData();
+      edit.append('nom', editName)
+      edit.append('image', uploadResult.secure_url);
+      dispatch(editlanguage(edit, id))
+      dispatch(fetchLanguage())
+      // closeAdd()
+    } catch {
+      console.log('sf rah t3awdat');
+    }
+  }
+  //end edit language
 
   let [isOpen, setIsOpen] = useState(false);
   let [add, setAdd] = useState(false);
@@ -68,7 +145,6 @@ const Language_d = () => {
         <button onClick={openAdd} className=" hover:bg-cyan-600  text-gray-800 hover:text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Add Language
         </button>
-
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -97,8 +173,11 @@ const Language_d = () => {
                           <img className='w-14' src={Language.image} alt="..." />
                         </td>
                         <td>
-                          <button onClick={openModal} className='text-blue-600'>Edit</button>
-                          <button className='pl-5 text-red-600'>Delete</button>
+                          <button onClick={() => {
+                            openModal();
+                            localStorage.setItem('idL', Language.id);
+                          }} className='text-blue-600'>Edit</button>
+                          <button onClick={() => delete_language(Language.id)} className='pl-5 text-red-600'>Delete</button>
                         </td>
                       </tr>
                     ))}
@@ -109,7 +188,6 @@ const Language_d = () => {
           </div>
         </div>
       </div>
-
       {/* update */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -152,7 +230,7 @@ const Language_d = () => {
                           </label>
                         </div>
                         <div className="md:w-2/3">
-                          <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder='Language Name' />
+                          <input onChange={(e) => setEditName(e.target.value)} className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder='Language Name' />
                         </div>
                       </div>
                       <div className="md:flex md:items-center mb-6">
@@ -165,9 +243,12 @@ const Language_d = () => {
                           <input
                             className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
                             type="file"
-                            id="formFile" />
+                            id="formFile"
+                            onChange={EditImage}
+                          />
+
                         </div>
-                        <img className='h-10' src="https://logos-world.net/wp-content/uploads/2022/07/Java-Logo.png" alt="..." />
+                        {/* <img className='h-10' src="https://logos-world.net/wp-content/uploads/2022/07/Java-Logo.png" alt="..." /> */}
                       </div>
                     </form>
                   </div>
@@ -176,7 +257,7 @@ const Language_d = () => {
                     <button
                       type="submit"
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleEdit}
                     >
                       Edit
                     </button>
@@ -188,9 +269,7 @@ const Language_d = () => {
         </Dialog>
       </Transition>
 
-
       {/* add language */}
-
 
       <Transition appear show={add} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeAdd}>
@@ -233,7 +312,7 @@ const Language_d = () => {
                           </label>
                         </div>
                         <div className="md:w-2/3">
-                          <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder='Language Name' />
+                          <input onChange={(e) => setName(e.target.value)} name='name' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-full-name" type="text" placeholder='Language Name' />
                         </div>
                       </div>
                       <div className="md:flex md:items-center mb-6">
@@ -246,21 +325,22 @@ const Language_d = () => {
                           <input
                             className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
                             type="file"
+                            name="image"
+                            onChange={changeImage}
                             id="formFile" />
                         </div>
+                      </div>
+                      <div className="mt-4">
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          onClick={handleSubmit}>
+                          ADD
+                        </button>
                       </div>
                     </form>
                   </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeAdd}
-                    >
-                      ADD
-                    </button>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

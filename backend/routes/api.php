@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users;
 use App\Http\Controllers\admin;
+use App\Http\Controllers\CloudinaryController;
 use App\Http\Controllers\Language;
 use App\Http\Controllers\Syntaxe;
 use App\Http\Controllers\Comment;
 use App\Http\Controllers\Examples;
+use GuzzleHttp\Psr7\Request;
 
 // connect
 Route::post('/login', [Users::class, 'login']);
@@ -44,6 +46,9 @@ Route::get('/user/getFavories/{id}', [Users::class, 'getFavories']);
 Route::delete('/user/supprimerFavorie/{id}', [Users::class, 'supprimerFavorie']);
 Route::get('/user/getsyntaxebyCat/{cat}', [Users::class, 'getsyntaxebyCat']);
 Route::get('/user/getsyntaxebyNom/{nom}', [Users::class, 'getsyntaxebyNom']);
+
+// cloudinary
+Route::get('cloudinary/signature', CloudinaryController::class . '@signature');
 
 // reactions
 Route::patch('/user/like', [Users::class, 'like']);

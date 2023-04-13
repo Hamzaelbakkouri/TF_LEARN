@@ -1,23 +1,35 @@
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addItem } from './dataSlice';
+import { registerUser } from '../redux/Slices/register';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
-    const [item, setItem] = useState('');
 
-    const handleInputChange = (event) => {
-        setItem(event.target.value);
-    };
+    const [fname, setPrenom] = useState('')
+    const [email, setEmail] = useState('')
+    const [lname, setNom] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmation, setConfirmation] = useState('')
+    const navigate = useNavigate();
+    const [error, setError] = useState();
 
-    const handleSubmit = async (event) => {
+    const form = new FormData();
+    form.append('prenom', fname)
+    form.append('nom', lname)
+    form.append('email', email)
+    form.append('password', password)
+    form.append('confirmation', confirmation)
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        setLoading(true);
-        await dispatch(addItem({ item }));
-        setLoading(false);
-        setItem('');
+        if (!email || !lname || !password || !confirmation || !fname) {
+            setError('Enter All The Fields')
+            return
+        }
+        dispatch(registerUser(form));
+        navigate('/login')
     };
 
     return (
@@ -31,25 +43,41 @@ export default function Register() {
                             alt="Your Company"
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                            Sign in to your account
+                            Sign in
                         </h2>
                     </div>
-                    <form className="mt-8 space-y-6" action="#" method="POST">
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
 
                             <div>
                                 <label className="sr-only">
-                                    UserName
+                                    FirstName
                                 </label>
                                 <input
+                                    value={fname}
+                                    onChange={(e) => setPrenom(e.target.value)}
                                     id="email-address"
-                                    name="email"
-                                    type="email"
+                                    name="text"
+                                    type="text"
                                     autoComplete="email"
-                                    required
                                     className="p-2 relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    placeholder="UserName"
+                                    placeholder="FirstName"
+                                />
+                            </div>
+                            <div>
+                                <label className="sr-only">
+                                    LastName
+                                </label>
+                                <input
+                                    value={lname}
+                                    onChange={(e) => setNom(e.target.value)}
+                                    id="email-address"
+                                    name="text"
+                                    type="text"
+                                    autoComplete="email"
+                                    className="p-2 relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="LastName"
                                 />
                             </div>
                             <div>
@@ -57,11 +85,12 @@ export default function Register() {
                                     Email address
                                 </label>
                                 <input
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     id="email-address"
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    required
                                     className="p-2 relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Email address"
                                 />
@@ -71,17 +100,35 @@ export default function Register() {
                                     Password
                                 </label>
                                 <input
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     id="password"
                                     name="password"
                                     type="password"
                                     autoComplete="current-password"
-                                    required
                                     className="p-2 relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Password"
                                 />
                             </div>
+                            <div>
+                                <label className="sr-only">
+                                    Confirmation
+                                </label>
+                                <input
+                                    value={confirmation}
+                                    onChange={(e) => setConfirmation(e.target.value)}
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    className="p-2 relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    placeholder="Confirmation"
+                                />
+                            </div>
                         </div>
-
+                        <small className='text-red-500'>
+                            {error}
+                        </small>
                         <div>
                             <button
                                 type="submit"

@@ -1,22 +1,16 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { DotsVerticalIcon, DocumentIcon } from '@heroicons/react/solid'
+import { DotsVerticalIcon, MenuAlt3Icon } from '@heroicons/react/solid'
 import NavBar from './NavBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLanguage } from '../redux/Slices/language';
 
 const tabs = [
     { name: 'All', href: '#', current: true },
 ]
-const team = [
-    {
-        name: 'javascript',
-        href: '#',
-        imageUrl:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/512px-Unofficial_JavaScript_logo_2.svg.png',
-        status: 'online',
-    },
-]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -24,12 +18,18 @@ function classNames(...classes) {
 
 export default function UserBar() {
     const [open, setOpen] = useState(false)
+    const dispatch = useDispatch();
+  const data = useSelector((state) => state.language);
+
+    useEffect(() => {
+        dispatch(fetchLanguage());
+    }, [])
 
     return (
         <div>
             <NavBar />
             <div className='w-full flex justify-start'>
-                <div className='w-10 cursor-pointer' onClick={() => setOpen(true)}><DocumentIcon /></div>
+                <div className='w-10 cursor-pointer' onClick={() => setOpen(true)}><MenuAlt3Icon /></div>
             </div>
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="fixed inset-0 overflow-hidden" onClose={setOpen}>
@@ -83,14 +83,14 @@ export default function UserBar() {
                                             </div>
                                         </div>
                                         <ul role="list" className="flex-1 divide-y divide-gray-200 overflow-y-auto">
-                                            {team.map((person) => (
-                                                <li key={person.handle}>
-                                                    <div className="group relative flex items-center py-6 px-5">
+                                            {data.data.map((person) => (
+                                                <li key={person.id}>
+                                                    <div className="group relative flex items-center py-6 px-5 cursor-pointer">
                                                         <a href={person.href} className="-m-1 block flex-1 p-1">
                                                             <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
                                                             <div className="relative flex min-w-0 flex-1 items-center">
                                                                 <span className="relative inline-block flex-shrink-0">
-                                                                    <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                                                                    <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                                                                     <span
                                                                         className={classNames(
                                                                             person.status === 'online' ? 'bg-green-400' : 'bg-gray-300',
@@ -138,19 +138,7 @@ export default function UserBar() {
                                                                                 </a>
                                                                             )}
                                                                         </Menu.Item>
-                                                                        <Menu.Item>
-                                                                            {({ active }) => (
-                                                                                <a
-                                                                                    href="#"
-                                                                                    className={classNames(
-                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                                                        'block px-4 py-2 text-sm'
-                                                                                    )}
-                                                                                >
-                                                                                    Send message
-                                                                                </a>
-                                                                            )}
-                                                                        </Menu.Item>
+
                                                                     </div>
                                                                 </Menu.Items>
                                                             </Transition>

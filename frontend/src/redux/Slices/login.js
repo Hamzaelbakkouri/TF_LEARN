@@ -3,6 +3,7 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 
 const cooki = new Cookies();
+const cook = cooki.get('login');
 export const loginUser = () => async (dispatch, getState) => {
     dispatch(loginUserStart());
 
@@ -16,7 +17,7 @@ export const loginUser = () => async (dispatch, getState) => {
         cooki.set('login', res);
 
         if (status === 200) {
-            dispatch(loginUserSuccess());
+            cook.role === 0 ? dispatch(loginUserSuccess()) : dispatch(loginAdminSuccess())
         } else {
             dispatch(loginUserFailure(res.message));
         }
@@ -26,11 +27,11 @@ export const loginUser = () => async (dispatch, getState) => {
 };
 
 const initialState = {
-    // username: '',
     email: '',
     password: '',
     isLoggedIn: false,
     isLoading: false,
+    isAdmin: false,
     error: null,
 };
 
@@ -50,6 +51,13 @@ const userSlice = createSlice({
         loginUserSuccess: (state) => {
             state.isLoading = false;
             state.isLoggedIn = true;
+            state.isAdmin = false;
+            state.error = null;
+        },
+        loginAdminSuccess: (state) => {
+            state.isLoading = false;
+            state.isLoggedIn = true;
+            state.isAdmin = true;
             state.error = null;
         },
         loginUserFailure: (state, action) => {
@@ -70,6 +78,7 @@ export const {
     loginUserStart,
     loginUserSuccess,
     loginUserFailure,
+    loginAdminSuccess,
     logoutUser,
 } = userSlice.actions;
 

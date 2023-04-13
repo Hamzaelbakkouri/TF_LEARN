@@ -1,10 +1,15 @@
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { fetchUsers } from "../../redux/Slices/Users";
 
-const people = [
-    { name: 'Lindsay Walton', email: 'lindsay.walton@example.com', role: '0' },
-    { name: 'hamza', email: 'hamza@example.com', role: '1' },
-]
 
 export default function users() {
+    // const dispatch = useDispatch();
+    const people = [];
+
+    // useEffect(() => {
+    //     dispatch(fetchUsers());
+    // }, [])
     return (
         <div className="w-full mt-20 md:pr-10 flex flex-wrap md:justify-end items-center">
             <div className="px-2 sm:px-6 lg:px-4 w-[80%]">

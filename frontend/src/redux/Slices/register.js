@@ -1,56 +1,44 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const addItem = (item) => async (dispatch) => {
-    dispatch(addItemStart());
+const API_URL = 'http://127.0.0.1:8000/api/register';
 
-    try {
-        // Make an API call to insert the item
-        const response = await fetch('/api/items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(item),
-        });
+export const registerUser = createAsyncThunk(
+  'userRegistration/registerUser',
+  async (userData) => {
+    const response = await axios.post(API_URL, userData);
+    return response.data;
+  }
+);
 
-        // Handle the response
-        const data = await response.json();
-        if (response.ok) {
-            dispatch(addItemSuccess(data));
-        } else {
-            dispatch(addItemFailure(data.message));
-        }
-    } catch (error) {
-        dispatch(addItemFailure(error.message));
-    }
-};
-
-const dataSlice = createSlice({
-    name: 'data',
-    initialState,
-    reducers: {
-        addItemStart: (state) => {
-            state.isLoading = true;
-        },
-        addItemSuccess: (state, action) => {
-            state.isLoading = false;
-            state.items.push(action.payload);
-            state.error = null;
-        },
-        addItemFailure: (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
-    },
+export const userRegistrationSlice = createSlice({
+  name: 'userRegistration',
+  initialState: {
+    isFetching: false,
+    isSuccess: false,
+    isError: false,
+    errorMessage: '',
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.isFetching = true;
+        state.isSuccess = false;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.errorMessage = '';
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isFetching = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.errorMessage = action.payload.message;
+      });
+  },
 });
-
-const initialState = {
-    items: [],
-    isLoading: false,
-    error: null,
-};
-
-export const { addItemStart, addItemSuccess, addItemFailure } = dataSlice.actions;
-
-export default dataSlice.reducer;

@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon , UserIcon} from '@heroicons/react/outline'
 import Cookies from 'universal-cookie'
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const cookies = new Cookies();
 const cooki = cookies.get('login');
@@ -12,25 +12,22 @@ const user = {
     name: 'hamza',
     email: 'hamza@gmail.com',
     imageUrl:
-        'https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png',
+        'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
 }
 const navigation1 = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'About', href: '#', current: false },
-    { name: 'Languages', href: '#', current: false },
-    { name: 'Favorites', href: '#', current: false },
+    { name: 'Home', href: '/', current: true },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Favorites', href: '/favorite', current: false },
 ]
 
 const navigation2 = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'About', href: '#', current: false },
-    { name: 'Languages', href: '#', current: false },
+    { name: 'Home', href: '/', current: true },
+    { name: 'About', href: '/about', current: false },
 
 ]
 const userNavigation1 = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
 ]
 
 const userNavigation2 = [
@@ -109,15 +106,15 @@ export default function Example() {
                                                                 {(cooki ? userNavigation1 : userNavigation2).map((item) => (
                                                                     <Menu.Item key={item.name}>
                                                                         {({ active }) => (
-                                                                            <a
-                                                                                href={item.href}
+                                                                            <NavLink
+                                                                                to={item.href}
                                                                                 className={classNames(
                                                                                     active ? 'bg-gray-100' : '',
                                                                                     'block px-4 py-2 text-sm text-gray-700'
                                                                                 )}
                                                                             >
                                                                                 {item.name}
-                                                                            </a>
+                                                                            </NavLink>
                                                                         )}
                                                                         
                                                                     </Menu.Item>
@@ -148,10 +145,10 @@ export default function Example() {
                                 <Disclosure.Panel className="border-b border-gray-700 md:hidden">
                                     <div className="px-2 py-3 space-y-1 sm:px-3">
                                         {(cooki ? navigation1 : navigation2).map((item) => (
-                                            <Disclosure.Button
+                                            <NavLink
                                                 key={item.name}
                                                 as="a"
-                                                href={item.href}
+                                                to={item.href}
                                                 className={classNames(
                                                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                     'block px-3 py-2 rounded-md text-base font-medium'
@@ -159,7 +156,7 @@ export default function Example() {
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </Disclosure.Button>
+                                            </NavLink>
                                         ))}
                                     </div>
                                     <div className="pt-4 pb-3 border-t border-gray-700">
