@@ -26,9 +26,9 @@ class Syntaxe extends Controller
         return 'deleted';
     }
     
-    function getsyntaxe($id)
+    function getsyntaxe_byLanguage($id)
     {
-        $Syntaxes = Syntaxes::find($id);
+        $Syntaxes = Syntaxes::where('id_language', $id)->orderBy('created_at', 'desc')->get();
         return $Syntaxes;
     }
 

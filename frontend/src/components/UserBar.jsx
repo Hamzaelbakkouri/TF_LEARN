@@ -89,16 +89,7 @@ export default function UserBar() {
                                                         <a href={person.href} className="-m-1 block flex-1 p-1">
                                                             <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
                                                             <div className="relative flex min-w-0 flex-1 items-center">
-                                                                <span className="relative inline-block flex-shrink-0">
-                                                                    <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
-                                                                    <span
-                                                                        className={classNames(
-                                                                            person.status === 'online' ? 'bg-green-400' : 'bg-gray-300',
-                                                                            'absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white'
-                                                                        )}
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                </span>
+                                                                    <img className="h-auto w-12 rounded-md" src={person.image} alt="" />
                                                                 <div className="ml-4 truncate">
                                                                     <p className="truncate text-sm font-medium text-gray-900">{person.name}</p>
                                                                 </div>

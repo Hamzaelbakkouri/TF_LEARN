@@ -9,22 +9,17 @@ class Examples extends Controller
 {
     public function get_S_examples($id)
     {
-        $example = example::find($id);
+        $example = example::where('id', $id)->orderBy('created_at', 'desc')->get();
         $example->get();
     }
 
-    public function add_example(Request $request)
+    public function addexample(Request $request)
     {
         $example = new example();
-        $example->id_syntaxe = $request->id_syntaxe;
         $example->example = $request->example;
         $example->role = $request->role;
+        $example->id_syntaxe = $request->id_syntaxe;
         $example->save();
         return 'added';
-    }
-
-    public function get_all_examples()
-    {
-        return example::all();
     }
 }

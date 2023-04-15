@@ -16,12 +16,12 @@ Route::post('/register', [Users::class, 'signup']);
 
 // syntaxes
 Route::post('/syntaxe/addsyntaxe', [Syntaxe::class, 'addsyntaxe']);
-Route::get('/syntaxe/getsyntaxe/{id}', [Syntaxe::class, 'getsyntaxe']);
+Route::get('/syntaxe/getsyntaxe/{id}', [Syntaxe::class, 'getsyntaxe_byLanguage']);
 Route::post('/syntaxe/updatesyntaxe', [syntaxe::class, 'updatesyntaxe']);
 Route::patch('/syntaxe/supprimersyntaxe/{syntaxe}', [syntaxe::class, 'supprimersyntaxe']);
 
 // examples
-Route::post('/syntaxe/addexample', [Examples::class, 'add_example']);
+Route::post('/addexample', [Examples::class, 'addexample']);
 Route::get('/syntaxe/getexample/{id}', [Examples::class, 'get_S_examples']);
 Route::get('/syntaxe/get_ALL_example/', [Examples::class, 'get_all_examples']);
 

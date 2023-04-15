@@ -1,127 +1,62 @@
-import React from 'react'
+/* This example requires Tailwind CSS v2.0+ */
+import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid'
+import { CursorClickIcon, MailOpenIcon, UsersIcon } from '@heroicons/react/outline'
 
-const Statistique = () => {
-    
-    return (
-        <div className="flex justify-center">
-            <div className="md:w-11/12">
-                <div className="flex md:flex-row space-x-8 flex-wrap">
-                    <div className="shadow-md p-3">
-                        <div className="">
-                            <div className="flex flex-col ">
-                                <div className="flex space-x-8 w-56">
-                                    <div className="">
-                                        <div className="uppercase text-sm text-gray-400">
-                                            Occupied
-                                        </div>
-                                        <div className="mt-1">
-                                            <div className="flex space-x-2 items-center">
-                                                <div className="text-2xl">
-                                                    35
-                                                </div>
-                                                <div className="text-xs text-green-800 bg-green-200 rounded-md p-1">
-                                                    +4.5%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <svg className="h-16 w-20 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="shadow-md p-4">
-                        <div className="">
-                            <div className="flex flex-col">
-                                <div className="flex space-x-8 w-56">
-                                    <div className="">
-                                        <div className="uppercase text-sm text-gray-400">
-                                            Revenue
-                                        </div>
-                                        <div className="mt-1">
-                                            <div className="flex space-x-2 items-center">
-                                                <div className="text-2xl">
-                                                    $30,000
-                                                </div>
-                                                <div className="text-xs text-red-500 bg-red-200 rounded-md p-1">
-                                                    -4.5%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <svg className="h-16 w-20 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="shadow-md p-4">
-                        <div className="">
-                            <div className="flex flex-col">
-                                <div className="flex space-x-8 w-56">
-                                    <div className="">
-                                        <div className="uppercase text-sm text-gray-400">
-                                            Unpaid
-                                        </div>
-                                        <div className="mt-1">
-                                            <div className="flex space-x-2 items-center">
-                                                <div className="text-2xl">
-                                                    $30,000
-                                                </div>
-                                                <div className="text-xs text-green-800 bg-green-200 rounded-md p-1">
-                                                    +4.5%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <svg className="h-16 w-20 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="shadow-md p-4">
-                        <div className="">
-                            <div className="flex flex-col">
-                                <div className="flex space-x-8 w-56">
-                                    <div className="">
-                                        <div className="uppercase text-sm text-gray-400">
-                                            Value
-                                        </div>
-                                        <div className="mt-1">
-                                            <div className="flex space-x-2 items-center">
-                                                <div className="text-2xl">
-                                                    30,000
-                                                </div>
-                                                <div className="text-xs text-green-800 bg-green-200 rounded-md p-1">
-                                                    +4.5%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="">
-                                        <svg className="h-16 w-20 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+const stats = [
+  { id: 1, name: 'Languages', stat: '71,897', icon: UsersIcon, change: '122', changeType: 'increase' },
+  { id: 2, name: 'Syntaxes', stat: '58.16%', icon: MailOpenIcon, change: '5.4%', changeType: 'increase' },
+  { id: 3, name: 'Likes', stat: '24.57%', icon: CursorClickIcon, change: '3.2%', changeType: 'decrease' },
+]
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
 }
 
-export default Statistique
+export default function Statistique() {
+  return (
+    <div>
+      <h3 className="text-lg leading-6 font-medium text-gray-900">Last 30 days</h3>
+      <dl className="mt-5  flex justify-center gap-5 flex-wrap">
+        {stats.map((item) => (
+          <div
+            key={item.id}
+            className=" relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
+          >
+            <dt>
+              <div className="absolute bg-indigo-500 rounded-md p-3">
+                <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
+              </div>
+              <p className="ml-16 text-sm font-medium text-gray-500 truncate">{item.name}</p>
+            </dt>
+            <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
+              <p className="text-2xl font-semibold text-gray-900">{item.stat}</p>
+              <p
+                className={classNames(
+                  item.changeType === 'increase' ? 'text-green-600' : 'text-red-600',
+                  'ml-2 flex items-baseline text-sm font-semibold'
+                )}
+              >
+                {item.changeType === 'increase' ? (
+                  <ArrowSmUpIcon className="self-center flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
+                ) : (
+                  <ArrowSmDownIcon className="self-center flex-shrink-0 h-5 w-5 text-red-500" aria-hidden="true" />
+                )}
+
+                <span className="sr-only">{item.changeType === 'increase' ? 'Increased' : 'Decreased'} by</span>
+                {item.change}
+              </p>
+              <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
+                <div className="text-sm">
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    {' '}
+                    View all<span className="sr-only"> {item.name} stats</span>
+                  </a>
+                </div>
+              </div>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )
+}

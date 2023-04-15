@@ -1,20 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit'
 import langueSlice from './Slices/language'
 import userReducer from './Slices/login';
-import syntaxesSlice from './Slices/AddSyntaxe'
+import userslice from './Slices/Users';
 import { userRegistrationSlice } from './Slices/register';
 import { AddlanguageSlice } from './Slices/Addlanguages';
 import { EditlanguageSlice } from './Slices/editLanguage';
-import Users from './Slices/Users';
+import { AddsyntaxeSlice } from './Slices/AddSyntaxe'
+import SyntaxegetSlice from './Slices/getSyntaxes';
 
 export const store = configureStore({
     reducer: {
         language: langueSlice,
         user: userReducer,
-        addSyntaxe: syntaxesSlice,
+        usersget: userslice,
+        syntaxe : SyntaxegetSlice,
+        addSyntaxe: AddsyntaxeSlice,
         registerslice: userRegistrationSlice,
         addlanguage: AddlanguageSlice,
         editlanguage: EditlanguageSlice,
-        getusers : Users
     },
 })

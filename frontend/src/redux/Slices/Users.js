@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Action
-export const fetchUsers = createAsyncThunk('fetchLanguage', async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/admin/getUsers");
-    return await response.json();
+export const fetchUsers = createAsyncThunk('fetchUsers', async () => {
+    const resp = await fetch("http://localhost:8000/api/admin/getUsers");
+    return await resp.json();
 })
 
-const usersSlice = createSlice({
+const userslice = createSlice({
     name: "users",
     initialState: {
         isLoading: false,
@@ -32,5 +32,4 @@ const usersSlice = createSlice({
         })
     }
 });
-
-export default usersSlice.reducer;
+export default userslice.reducer;

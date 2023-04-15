@@ -76,7 +76,7 @@ class Users extends Controller
     public function ajouterFavorie(Request $request)
     {
         $count = Favorie::select('id_syntaxe', 'id_user')
-            ->where('id_syntaxe', '=', $request->id_livre)
+            ->where('id_syntaxe', '=', $request->id_syntaxe)
             ->where('id_user', '=', $request->id_user)
             ->count();
         if ($count == 0) {

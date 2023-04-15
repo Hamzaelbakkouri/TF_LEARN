@@ -67,9 +67,9 @@ export default function Example() {
                                                 <div className="hidden md:block">
                                                     <div className="ml-10 flex items-baseline space-x-4">
                                                         {(cooki ? navigation1 : navigation2).map((item) => (
-                                                            <a
+                                                            <NavLink
                                                                 key={item.name}
-                                                                href={item.href}
+                                                                to={item.href}
                                                                 className={classNames(
                                                                     item.current
                                                                         ? 'bg-[#000000] text-white'
@@ -79,7 +79,7 @@ export default function Example() {
                                                                 aria-current={item.current ? 'page' : undefined}
                                                             >
                                                                 {item.name}
-                                                            </a>
+                                                            </NavLink>
                                                         ))}
                                                     </div>
                                                 </div>
@@ -178,14 +178,14 @@ export default function Example() {
                                         </div>
                                         <div className="mt-3 px-2 space-y-1">
                                             {(cooki ? userNavigation1 : userNavigation2).map((item) => (
-                                                <Disclosure.Button
+                                                <NavLink
                                                     key={item.name}
                                                     as="a"
-                                                    href={item.href}
+                                                    to={item.href}
                                                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                                                 >
                                                     {item.name}
-                                                </Disclosure.Button>
+                                                </NavLink>
                                             ))}
                                         </div>
                                     </div>
