@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLanguage } from '../../redux/Slices/language';
-import { addSyntaxe } from '../../redux/Slices/AddSyntaxe';
+import { AddsyntaxeSlice, addSyntaxe } from '../../redux/Slices/AddSyntaxe';
 import { Toast } from 'primereact/toast';
 
 const Syntaxe_insert = () => {
@@ -11,12 +11,11 @@ const Syntaxe_insert = () => {
   const [id_language, setLanguage] = useState();
   const [code, setCode] = useState('// write your code here ....');
 
-  const showSuccess = () => {
-    toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
+  const showSuccess = (message) => {
+    toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
   }
-  
-  if (code) {
-    showSuccess();
+  const showError = (message) => {
+    toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 3000 });
   }
 
   const form = new FormData();
@@ -25,8 +24,11 @@ const Syntaxe_insert = () => {
 
   const submitSyntaxe = (e) => {
     e.preventDefault();
-    dispatch(addSyntaxe(form))
+    const result = dispatch(addSyntaxe(form))
+    console.log(result);
   }
+  // const isSuccess = useSelector(state => state[AddsyntaxeSlice.name].isSuccess)
+
 
   const categories = useSelector((state) => state.language);
   useEffect(() => {
@@ -78,7 +80,7 @@ const Syntaxe_insert = () => {
         </form>
       </div>
 
-      <hr className='w-full mt-5 -mb-10' />
+      <hr className='w-full -mb-10' />
       <div className='w-full h-screen flex justify-center items-center '>
         <form className="w-full max-w-sm">
           <h1 className='w-full flex justify-center ml-9 mb-4'>ADD EXAMPLE TITLE</h1>
@@ -149,7 +151,7 @@ const Syntaxe_insert = () => {
                   editor
                 </div>
                 <div className="flex justify-end">
-                  <div className="bg-teal-900 border-slate-500 border h-10 -mr-2 w-[523px]" />
+                  <div className="bg-teal-900 border-slate-500 border h-10 sm:w-80 -mr-2 w-[523px]" />
                 </div>
               </div>
               <div className="items-center flex">

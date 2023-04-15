@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import Sidebar from './components/admin/Sidebar.jsx'
 import Footer from "./components/footer.jsx";
 import NotFound from "./pages/admin/NotFound.jsx";
