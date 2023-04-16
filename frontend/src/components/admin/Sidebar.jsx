@@ -23,7 +23,7 @@ const navigation = [
     { name: 'Languages', href: '/admin/languages', icon: DesktopComputerIcon, current: false },
 ]
 const secondaryNavigation = [
-    { name: 'Syntaxes', href: '#', icon: CodeIcon },
+    { name: 'Syntaxes', href: '/admin/syntaxes', icon: CodeIcon },
     { name: 'add Syntaxe', href: '/admin/addSyntaxe', icon: CodeIcon },
 ]
 

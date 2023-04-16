@@ -18,6 +18,7 @@ const navigation1 = [
     { name: 'Home', href: '/', current: true },
     { name: 'About', href: '/about', current: false },
     { name: 'Favorites', href: '/favorite', current: false },
+    { name: 'Languages', href: '/languges_posts', current: false },
 ]
 
 const navigation2 = [

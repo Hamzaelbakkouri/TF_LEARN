@@ -7,13 +7,15 @@ import { AddlanguageSlice } from './Slices/Addlanguages';
 import { EditlanguageSlice } from './Slices/editLanguage';
 import { AddsyntaxeSlice } from './Slices/AddSyntaxe'
 import SyntaxegetSlice from './Slices/getSyntaxes';
+import CommentgetSlice from './Slices/getComments';
 
 export const store = configureStore({
     reducer: {
         language: langueSlice,
         user: userReducer,
         usersget: userslice,
-        syntaxe : SyntaxegetSlice,
+        syntaxe: SyntaxegetSlice,
+        comments : CommentgetSlice,
         addSyntaxe: AddsyntaxeSlice,
         registerslice: userRegistrationSlice,
         addlanguage: AddlanguageSlice,

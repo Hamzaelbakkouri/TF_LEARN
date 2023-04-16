@@ -15,6 +15,8 @@ import UserBar from "./components/UserBar.jsx";
 import Cookies from "universal-cookie";
 import Home from "./pages/users/Home.jsx";
 import Syntaxe_insert from "./pages/admin/Syntaxe_insert.jsx";
+import Syntaxes from "./pages/admin/syntaxes.jsx";
+import Language_page from "./pages/users/Language_page.jsx";
 
 const cooki = new Cookies();
 
@@ -40,7 +42,9 @@ function App() {
             <Route path="/Statistique" element={<Statistique />} />
             <Route path="/admin/languages" element={<Language_d />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route path="/admin/addSyntaxe" element={<Syntaxe_insert/>} />
+            <Route path="/admin/addSyntaxe" element={<Syntaxe_insert />} />
+            <Route path="/admin/syntaxes" element={<Syntaxes />} />
+            <Route path="/languges_posts" element={<Language_page/>} />
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

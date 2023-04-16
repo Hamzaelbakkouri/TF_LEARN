@@ -23,7 +23,7 @@ Route::patch('/syntaxe/supprimersyntaxe/{syntaxe}', [syntaxe::class, 'supprimers
 // examples
 Route::post('/addexample', [Examples::class, 'addexample']);
 Route::get('/syntaxe/getexample/{id}', [Examples::class, 'get_S_examples']);
-Route::get('/syntaxe/get_ALL_example/', [Examples::class, 'get_all_examples']);
+Route::get('/syntaxe/get_ALL_example/', [admin::class, 'getSyntaxes']);
 
 // languages
 Route::delete('/language/deletelanguage/{id}', [Language::class, 'supprimerCat']);
@@ -31,7 +31,7 @@ Route::post('/language/addlanguage', [Language::class, 'addCat']);
 Route::patch('/language/updatelanguage/{id}', [Language::class, 'modifierCat']);
 
 // comments
-Route::get('/getcomments/{id}', [Comment::class, 'getcomments']);
+Route::get('/getcomments', [Comment::class, 'getcomments']);
 Route::post('/send/comment', [Comment::class, 'sendcomments']);
 
 // admin

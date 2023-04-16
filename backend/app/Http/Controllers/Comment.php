@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comments;
+use Illuminate\Support\Facades\DB;
 
 class Comment extends Controller
 {
@@ -17,12 +18,12 @@ class Comment extends Controller
         return 'send';
     }
 
-    public function getcomments($id)
+    public function getcomments()
     {
-        return Comments::select('Comments.comment', 'Comments.id', 'Comments.created_at', 'Comments.id_user')
-            ->join('languages', 'languages.id')
-            ->where('languages.id', '=', $id)
-            ->orderBy('Comments.id', 'asc')
-            ->get();
+        return DB::table('comments')
+        ->join('languages', 'comments.id_language', '=', 'languages.id')
+        ->join('users', 'comments.id_user', '=', 'users.id')
+        ->select('comments.comment','users.nom as userName','comments.created_at' ,'users.prenom','languages.nom')
+        ->get();
     }
 }
