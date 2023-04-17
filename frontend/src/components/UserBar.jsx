@@ -6,6 +6,7 @@ import { DotsVerticalIcon, MenuAlt3Icon } from '@heroicons/react/solid'
 import NavBar from './NavBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLanguage } from '../redux/Slices/language';
+import { NavLink } from 'react-router-dom';
 
 const tabs = [
     { name: 'All', href: '#', current: true },
@@ -19,7 +20,7 @@ function classNames(...classes) {
 export default function UserBar() {
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch();
-  const data = useSelector((state) => state.language);
+    const data = useSelector((state) => state.language);
 
     useEffect(() => {
         dispatch(fetchLanguage());
@@ -89,7 +90,7 @@ export default function UserBar() {
                                                         <a href={person.href} className="-m-1 block flex-1 p-1">
                                                             <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
                                                             <div className="relative flex min-w-0 flex-1 items-center">
-                                                                    <img className="h-auto w-12 rounded-md" src={person.image} alt="" />
+                                                                <img className="h-auto w-12 rounded-md" src={person.image} alt="" />
                                                                 <div className="ml-4 truncate">
                                                                     <p className="truncate text-sm font-medium text-gray-900">{person.name}</p>
                                                                 </div>
@@ -127,6 +128,20 @@ export default function UserBar() {
                                                                                 >
                                                                                     View profile
                                                                                 </a>
+                                                                            )}
+                                                                        </Menu.Item>
+                                                                        <Menu.Item>
+                                                                            {({ active }) => (
+                                                                                <NavLink
+                                                                                    onClick={() => localStorage.setItem('id_language', person.id)}
+                                                                                    to="/languges_posts"
+                                                                                    className={classNames(
+                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                                                        'block px-4 py-2 text-sm'
+                                                                                    )}
+                                                                                >
+                                                                                    Language post
+                                                                                </NavLink>
                                                                             )}
                                                                         </Menu.Item>
 

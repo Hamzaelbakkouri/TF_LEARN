@@ -7,6 +7,8 @@ import {
     ChartBarIcon,
     DesktopComputerIcon,
     CodeIcon,
+    DocumentAddIcon,
+    ViewGridAddIcon,
 } from '@heroicons/react/outline'
 import {
     ChevronDownIcon,
@@ -15,8 +17,6 @@ import {
 import { NavLink, useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 
-
-
 const navigation = [
     { name: 'Statistique', href: '/statistique', icon: ChartBarIcon, current: false },
     { name: 'Users', href: '/admin/users', icon: UsersIcon, current: false },
@@ -24,7 +24,8 @@ const navigation = [
 ]
 const secondaryNavigation = [
     { name: 'Syntaxes', href: '/admin/syntaxes', icon: CodeIcon },
-    { name: 'add Syntaxe', href: '/admin/addSyntaxe', icon: CodeIcon },
+    { name: 'Add Syntaxe', href: '/admin/addSyntaxe', icon: DocumentAddIcon },
+    { name: 'Add Example', href: '/admin/addExample', icon: ViewGridAddIcon },
 ]
 
 function classNames(...classes) {
@@ -34,15 +35,18 @@ function classNames(...classes) {
 
 export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    // const navige = useNavigate();
+    const navige = useNavigate();
 
     const cooki = new Cookies();
+    const cook = cooki.get('login');
+
+    // console.log(cook);
 
     const Logout = () => {
         cooki.remove('login');
-        window.location.href = '/login';
+        navige('/login');
     }
-    
+
     return (
         <>
             <div className="min-h-full">
@@ -229,7 +233,7 @@ export default function Sidebar() {
                                                 alt=""
                                             />
                                             <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
-                                                <span className="sr-only">Open user menu for </span>Emilia Birch
+                                                <span className="sr-only">Open user menu for </span>hamza
                                             </span>
                                             <ChevronDownIcon
                                                 className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -261,7 +265,7 @@ export default function Sidebar() {
                                                 {({ active }) => (
                                                     <a
                                                         onClick={Logout}
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                                        className={classNames(active ? 'bg-gray-100 cursor-pointer' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Logout
                                                     </a>

@@ -15,7 +15,7 @@ export const store = configureStore({
         user: userReducer,
         usersget: userslice,
         syntaxe: SyntaxegetSlice,
-        comments : CommentgetSlice,
+        comments: CommentgetSlice,
         addSyntaxe: AddsyntaxeSlice,
         registerslice: userRegistrationSlice,
         addlanguage: AddlanguageSlice,

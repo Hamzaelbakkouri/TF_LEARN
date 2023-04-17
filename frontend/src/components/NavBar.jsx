@@ -12,7 +12,7 @@ const user = {
     name: 'hamza',
     email: 'hamza@gmail.com',
     imageUrl:
-        'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
+    'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
 }
 const navigation1 = [
     { name: 'Home', href: '/', current: true },
@@ -24,7 +24,7 @@ const navigation1 = [
 const navigation2 = [
     { name: 'Home', href: '/', current: true },
     { name: 'About', href: '/about', current: false },
-
+    
 ]
 const userNavigation1 = [
     { name: 'Your Profile', href: '#' },
@@ -41,10 +41,11 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-
+    const navigate = useNavigate('/');
+    
     const logout = () => {
         cookies.remove('login');
-        window.location.href = '/';
+        navigate('/');
     }
     return (
         <>

@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid'
 import { CursorClickIcon, MailOpenIcon, UsersIcon } from '@heroicons/react/outline'
+import Sidebar from '../../components/admin/Sidebar'
 
 const stats = [
   { id: 1, name: 'Languages', stat: '71,897', icon: UsersIcon, change: '122', changeType: 'increase' },
@@ -15,7 +16,7 @@ function classNames(...classes) {
 export default function Statistique() {
   return (
     <div>
-      <h3 className="text-lg leading-6 font-medium text-gray-900">Last 30 days</h3>
+      <Sidebar />
       <dl className="mt-5  flex justify-center gap-5 flex-wrap">
         {stats.map((item) => (
           <div

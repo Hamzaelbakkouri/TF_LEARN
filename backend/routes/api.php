@@ -31,7 +31,7 @@ Route::post('/language/addlanguage', [Language::class, 'addCat']);
 Route::patch('/language/updatelanguage/{id}', [Language::class, 'modifierCat']);
 
 // comments
-Route::get('/getcomments', [Comment::class, 'getcomments']);
+Route::get('/getcomment/{id}', [Comment::class, 'getcomments']);
 Route::post('/send/comment', [Comment::class, 'sendcomments']);
 
 // admin

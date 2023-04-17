@@ -1,37 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import UserBar from '../../components/UserBar'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchComments } from '../../redux/Slices/getComments';
 
 const Language_page = () => {
-  return (
-    <div className='w-full flex flex-wrap justify-evenly'>
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchComments());
+  }, [])
 
-      <div className='flex flex-col justify-center'>
-        <div className='w-80 '>
-          <a
-            href="#"
-            className="relative block overflow-hidden rounded-xl bg-[url(https://user-images.githubusercontent.com/65357821/82758846-0394c180-9e0f-11ea-8b02-51f885eff3f5.png)] bg-cover bg-center bg-no-repeat">
-            <div className="absolute inset-0 bg-black/25"></div>
-            <div className="relative flex items-start justify-between p-4 sm:p-6 lg:p-8">
-              <div className="sm:pt-18 pt-12 text-white lg:pt-24">
-                <h3 className="text-xl font-bold sm:text-2xl">Rome</h3>
-                <p className="text-sm">Italy</p>
-              </div>
+  const comment = useSelector((state) => state.comments);
+
+  if (comment.isLoading) {
+    return (
+      <p className='text-black'>
+        Wait.....
+      </p>
+    )
+  }
+  return (
+    <div className='w-full '>
+      <UserBar />
+      <div
+        className="relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center"
+        style={{
+          backgroundImage: "url(" + + ")",
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          height: '500px'
+        }}
+      >
+        <div
+          className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+          <div className="flex h-full items-center justify-center">
+            <div className="text-white">
+              <h2 className="mb-4 text-4xl font-semibold">hamza</h2>
+              <h4 className="mb-6 text-xl font-semibold">Subheading</h4>
+              <button
+                type="button"
+                className="rounded border-2 border-neutral-50 px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                data-te-ripple-init
+                data-te-ripple-color="light">
+                Call to action
+              </button>
             </div>
-          </a>
+          </div>
         </div>
-        <form className="w-full max-w-xl bg-white rounded-lg -ml-3">
-          <h2 className="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
-          <div className="w-full md:w-full px-3 mb-2 mt-2">
-            <textarea className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Type Your Comment' required></textarea>
-          </div>
-          <div className="w-full md:w-full flex items-start  px-3">
-            <div className="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
-            </div>
-            <div className="-mr-1">
-              <input type='submit' className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Post Comment' />
-            </div>
-          </div>
-        </form>
       </div>
+      {/* {comment.data.map((item) => { */}
+
+      {/* })} */}
     </div>
   )
 }

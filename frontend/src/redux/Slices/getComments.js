@@ -2,8 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Action
 export const fetchComments = createAsyncThunk('fetchComments', async () => {
-    const response = await fetch("http://127.0.0.1:8000/api");
-    return await response.json();
+    const id = localStorage.getItem('id_language');
+    const resp = await fetch("http://127.0.0.1:8000/api/getcomment/" + id);
+    return await resp.json();
 })
 
 const CommentgetSlice = createSlice({
@@ -11,14 +12,14 @@ const CommentgetSlice = createSlice({
     initialState: {
         isLoading: false,
         data: [],
-        Error : false
+        Error: false
     },
     extraReducers: (builder) => {
         builder.addCase(fetchComments.pending, (state) => {
             state.isLoading = true;
             state.Error = null;
         })
-        
+
         builder.addCase(fetchComments.fulfilled, (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
@@ -26,7 +27,7 @@ const CommentgetSlice = createSlice({
         })
 
         builder.addCase(fetchComments.rejected, (state, action) => {
-            console.log("Error" , action.payload);
+            console.log("Error", action.payload);
             state.isLoading = false;
             state.Error = action.error.message;
         })

@@ -3,10 +3,14 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux';
 import { setEmail, setPassword, loginUser, loginUserSuccess, loginAdminSuccess } from '../redux/Slices/login';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import UserBar from '../components/UserBar';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const cookies = new Cookies();
+    const cooki = cookies.get('login');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,6 +22,7 @@ export default function Login() {
 
     return (
         <>
+      <UserBar/>
             <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>
