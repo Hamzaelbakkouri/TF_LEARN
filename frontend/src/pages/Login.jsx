@@ -5,24 +5,39 @@ import { setEmail, setPassword, loginUser, loginUserSuccess, loginAdminSuccess }
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import UserBar from '../components/UserBar';
+import { Toast } from 'primereact/toast';
+import { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cookies = new Cookies();
     const cooki = cookies.get('login');
+    const toast = useRef(null);
+
+    const showSuccess = (message) => {
+        toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
+    }
+    const showError = (message) => {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 3000 });
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        dispatch(loginUser());
-        if (dispatch(loginUser())) {
-            navigate('/statistique');
+        try {
+            dispatch(loginUser());
+            showSuccess();
+            navigate('/');
+        } catch (error) {
+            showError('not working');
         }
     };
 
     return (
         <>
-      <UserBar/>
+            <UserBar />
+            <Toast ref={toast} />
             <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>

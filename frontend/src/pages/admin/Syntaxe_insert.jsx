@@ -22,16 +22,26 @@ const Syntaxe_insert = () => {
   form.append('syntaxe', syntaxeName);
   form.append('id_language', id_language);
 
-  const submitSyntaxe = (e) => {
+  const submitSyntaxe = async (e) => {
     e.preventDefault();
     if (!syntaxeName || !id_language) {
       showError();
       return
     }
-
     dispatch(addSyntaxe(form))
-    showSuccess();
+    console.log(isadding);
+
+    if (isadding.isSuccess) {
+      showSuccess('added success')
+    } else if (isadding.isError) {
+      showError('not added')
+    }
   }
+  // useEffect(() => {
+    
+  // }, [])
+  const isadding = useSelector((state) => state.Syntaxeadding);
+
   const categories = useSelector((state) => state.language);
   useEffect(() => {
     dispatch(fetchLanguage());

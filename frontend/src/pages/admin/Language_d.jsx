@@ -1,22 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLanguage } from '../../redux/Slices/language';
 import { useNavigate } from 'react-router-dom';
-import { addlanguage } from '../../redux/Slices/Addlanguages';
+import { AddlanguageSlice, addlanguage } from '../../redux/Slices/Addlanguages';
 import { editlanguage } from '../../redux/Slices/editLanguage';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import Sidebar from '../../components/admin/Sidebar';
-
+import { Toast } from 'primereact/toast';
 
 const apiKey = '654492469283666'
 const API_BASE_URL = 'https://api.cloudinary.com/v1_1/dy9tuum8j/auto/upload';
 
-
 const Language_d = () => {
-
+  const toast = useRef(null);
   const cookie = new Cookies();
   const cooki = cookie.get('login');
   const navigate = useNavigate();
@@ -48,9 +47,11 @@ const Language_d = () => {
       lastData.append('nom', name)
       lastData.append('image', uploadResult.secure_url);
       dispatch(addlanguage(lastData))
-
+      dispatch(fetchLanguage())
+      showSuccess('language added success')
+      closeAdd();
     } catch {
-      console.log('thala');
+      showError('language not added');
     }
   }
   //end add language 
@@ -69,6 +70,13 @@ const Language_d = () => {
   const [imageEdit, setEditIamge] = useState();
   const EditImage = (e) => {
     setEditIamge(e.target.files[0])
+  }
+
+  const showSuccess = (message) => {
+    toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 1000 });
+  }
+  const showError = (message) => {
+    toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 1000 });
   }
   const handleEdit = async (event) => {
     event.preventDefault();
@@ -89,11 +97,11 @@ const Language_d = () => {
       edit.append('image', uploadResult.secure_url);
       dispatch(editlanguage(edit, id))
       dispatch(fetchLanguage())
-      // closeAdd()
     } catch {
-      console.log('sf rah t3awdat');
+      console.log('sf rah tgadat');
     }
   }
+
   //end edit language
 
   let [isOpen, setIsOpen] = useState(false);
@@ -136,10 +144,10 @@ const Language_d = () => {
     )
   }
 
-
   return (
     <div>
       <Sidebar />
+      <Toast ref={toast} />
       <div className="w-full mt-20 md:pr-10 flex flex-wrap md:justify-end items-center">
         <div className="px-2 sm:px-6 lg:px-4 w-[80%]">
           <h2>Languages</h2>

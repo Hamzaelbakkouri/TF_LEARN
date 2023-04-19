@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSyntaxes } from '../../redux/Slices/getSyntaxes';
 import { Dropdown } from 'primereact/dropdown';
 import Sidebar from '../../components/admin/Sidebar';
+import { addExample } from '../../redux/Slices/addexample';
+import { fetchALLSyntaxes } from '../../redux/Slices/get_All_Syntaxes';
 
 const Example_insert = () => {
     const dispatch = useDispatch();
@@ -13,22 +15,28 @@ const Example_insert = () => {
 
     const InsertExample = (e) => {
         e.preventDefault();
+        const formdata = new FormData();
+        formdata.append('example', example);
+        formdata.append('id_syntaxe', syntaxeID);
+        formdata.append('role', role);
+        dispatch(addExample(formdata))
     }
     
-    useState(() => {
-        dispatch(fetchSyntaxes())
+    useEffect(() => {
+        dispatch(fetchALLSyntaxes());
     }, [])
-    const data = useSelector((state) => state.syntaxe)
-    // const syn = data.data;
-    // console.log(syntaxeID);
+    const data = useSelector((state) => state.allSyntaxes)
+    useEffect(() => {
+        console.log(data);
+    }, [data])
 
     return (
         <div>
             <Sidebar />
-            <div className="card text-black w-52 flex justify-content-center">
-                <Dropdown value={data.data.id} onChange={(e) => setSyntaxeID(e.value)} options={data.data.syntaxe} optionLabel="name"
+            {/* <div className="card text-black w-52 flex justify-content-center">
+                <Dropdown value={2} onChange={(e) => setSyntaxeID(e.value)} options='hamza' optionLabel="name"
                     placeholder="Select Syntaxe" className="w-full md:w-14rem" />
-            </div>
+            </div> */}
 
             <div className='w-full mt-5 flex justify-center items-center '>
                 <form className="w-full max-w-sm">
@@ -40,7 +48,7 @@ const Example_insert = () => {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <textarea placeholder='Title Example' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="30" rows="4"></textarea>
+                            <textarea onChange={(e) => setExample(e.target.value)} placeholder='Title Example' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="30" rows="4"></textarea>
                         </div>
                     </div>
                     <div className="md:flex md:items-center">
@@ -68,7 +76,7 @@ const Example_insert = () => {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <textarea placeholder='Text Example' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="30" rows="4"></textarea>
+                            <textarea onChange={(e) => setExample(e.target.value)} placeholder='Text Example' className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="30" rows="4"></textarea>
                         </div>
                     </div>
                     <div className="md:flex md:items-center">
@@ -92,7 +100,10 @@ const Example_insert = () => {
                     <h1 className='w-full flex justify-center ml-9 mb-4'>ADD EXAMPLE CODE</h1>
                     <div className="md:w-3/3">
                         <h4 className=' ml-20'>WRITE YOUR CODE HERE :</h4>
-                        <textarea placeholder='Code Example' onChange={(e) => setCode(e.target.value)} className="ml-14 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-6 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="4" rows="4"></textarea>
+                        <textarea placeholder='Code Example' onChange={(e) => {
+                            setCode(e.target.value);
+                            setExample(e.target.value);
+                        }} className="ml-14 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-6 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="text example" id="" cols="4" rows="4"></textarea>
                     </div>
                     <div className="md:flex md:items-center mb-6">
                         <div className="md:w-1/3">

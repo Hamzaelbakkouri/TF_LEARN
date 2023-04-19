@@ -40,16 +40,9 @@ Route::get('/admin/getUsers', [admin::class, 'getUsers']);
 Route::get('/admin/getLanguage', [admin::class, 'getLanguages']);
 
 // user
-Route::get('/user/getsyntaxes/{id}', [Users::class, 'getsyntaxes']);
 Route::post('/user/ajouterFavorie', [Users::class, 'ajouterFavorie']);
 Route::get('/user/getFavories/{id}', [Users::class, 'getFavories']);
 Route::delete('/user/supprimerFavorie/{id}', [Users::class, 'supprimerFavorie']);
-Route::get('/user/getsyntaxebyCat/{cat}', [Users::class, 'getsyntaxebyCat']);
-Route::get('/user/getsyntaxebyNom/{nom}', [Users::class, 'getsyntaxebyNom']);
 
 // cloudinary
 Route::get('cloudinary/signature', CloudinaryController::class . '@signature');
-
-// reactions
-Route::patch('/user/like', [Users::class, 'like']);
-Route::patch('/user/dislike', [Users::class, 'dislike']);

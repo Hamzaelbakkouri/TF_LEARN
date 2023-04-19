@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = 'http://127.0.0.1:8000/api/syntaxe/addsyntaxe';
 
-export const addSyntaxe = createAsyncThunk(
+export const addSyntaxe =  createAsyncThunk(
   'syntaxe_add/addsyntaxe',
   async (userData) => {
     const S_res = await axios.post(API_URL, userData);
@@ -11,7 +11,7 @@ export const addSyntaxe = createAsyncThunk(
   }
 );
 
-export const AddsyntaxeSlice = createSlice({
+const AddsyntaxeSlice = createSlice({
   name: 'addsyntaxe',
   initialState: {
     isFetching: false,
@@ -42,3 +42,5 @@ export const AddsyntaxeSlice = createSlice({
       });
   },
 });
+ 
+export default AddsyntaxeSlice.reducer;

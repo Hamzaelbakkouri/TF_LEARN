@@ -16,15 +16,14 @@ import Syntaxe_insert from "./pages/admin/Syntaxe_insert.jsx";
 import Syntaxes from "./pages/admin/syntaxes.jsx";
 import Language_page from "./pages/users/Language_page.jsx";
 import Example_insert from "./pages/admin/example_insert.jsx";
+import All_syntaxes from "./pages/users/All_syntaxes.jsx";
 
 const cooki = new Cookies();
 
 
 function App() {
-  // const navigate = useNavigate();
   const [role, setRole] = useState();
   const cookis = cooki.get('login');
-
   useEffect(() => {
     if (cookis) {
       setRole(cookis.user.role)
@@ -35,7 +34,6 @@ function App() {
     <div>
       <BrowserRouter>
         <div className="flex flex-col">
-          {/* {(role === 0) ?  : <UserBar />} */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Statistique" element={<Statistique />} />
@@ -45,6 +43,7 @@ function App() {
             <Route path="/admin/addExample" element={<Example_insert />} />
             <Route path="/admin/syntaxes" element={<Syntaxes />} />
             <Route path="/languges_posts" element={<Language_page />} />
+            <Route path="/all_syntaxes" element={<All_syntaxes />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

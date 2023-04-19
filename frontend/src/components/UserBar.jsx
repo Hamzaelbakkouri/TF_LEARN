@@ -87,7 +87,7 @@ export default function UserBar() {
                                             {data.data.map((person) => (
                                                 <li key={person.id}>
                                                     <div className="group relative flex items-center py-6 px-5 cursor-pointer">
-                                                        <a href={person.href} className="-m-1 block flex-1 p-1">
+                                                        <NavLink to='/all_syntaxes' className="-m-1 block flex-1 p-1">
                                                             <div className="absolute inset-0 group-hover:bg-gray-50" aria-hidden="true" />
                                                             <div className="relative flex min-w-0 flex-1 items-center">
                                                                 <img className="h-auto w-12 rounded-md" src={person.image} alt="" />
@@ -95,7 +95,7 @@ export default function UserBar() {
                                                                     <p className="truncate text-sm font-medium text-gray-900">{person.name}</p>
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </NavLink>
                                                         <Menu as="div" className="relative ml-2 inline-block flex-shrink-0 text-left">
                                                             <Menu.Button className="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                                                 <span className="sr-only">Open options menu</span>
@@ -144,7 +144,6 @@ export default function UserBar() {
                                                                                 </NavLink>
                                                                             )}
                                                                         </Menu.Item>
-
                                                                     </div>
                                                                 </Menu.Items>
                                                             </Transition>

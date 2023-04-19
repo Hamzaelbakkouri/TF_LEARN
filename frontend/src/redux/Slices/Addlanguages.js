@@ -12,7 +12,7 @@ export const addlanguage = createAsyncThunk(
 );
 
 
-export const AddlanguageSlice = createSlice({
+ const AddlanguageSlice = createSlice({
     name: 'addlanguage',
     initialState: {
         isFetching: false,
@@ -42,4 +42,6 @@ export const AddlanguageSlice = createSlice({
                 state.errorMessage = action.payload.message;
             });
     },
-});
+ });
+
+export default AddlanguageSlice.reducer;
