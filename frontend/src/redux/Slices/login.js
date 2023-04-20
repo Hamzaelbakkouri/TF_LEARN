@@ -54,12 +54,6 @@ const userSlice = createSlice({
             state.isAdmin = false;
             state.error = null;
         },
-        loginAdminSuccess: (state) => {
-            state.isLoading = false;
-            state.isLoggedIn = true;
-            state.isAdmin = true;
-            state.error = null;
-        },
         loginUserFailure: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;

@@ -1,31 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Action
-export const fetchALLSyntaxes = createAsyncThunk('fetchALLSyntaxes', async () => {
+export const fetchallSyntaxes = createAsyncThunk('fetchSyntaxes', async () => {
     const response = await fetch("http://127.0.0.1:8000/api/admin/getsyntaxes");
     return await response.json();
 })
 
-const SyntaxegetALLSlice = () => createSlice({
-    name: "Syntaxes",
+const SyntaxegetallSlice = createSlice({
+    name: "allSyntaxes",
     initialState: {
         isLoading: false,
         data: [],
         Error: false
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchALLSyntaxes.pending, (state) => {
+        builder.addCase(fetchallSyntaxes.pending, (state) => {
             state.isLoading = true;
             state.Error = null;
         })
 
-        builder.addCase(fetchALLSyntaxes.fulfilled, (state, action) => {
+        builder.addCase(fetchallSyntaxes.fulfilled, (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
             state.Error = null;
         })
 
-        builder.addCase(fetchALLSyntaxes.rejected, (state, action) => {
+        builder.addCase(fetchallSyntaxes.rejected, (state, action) => {
             console.log("Error", action.payload);
             state.isLoading = false;
             state.Error = action.error.message;
@@ -33,4 +33,4 @@ const SyntaxegetALLSlice = () => createSlice({
     }
 });
 
-export default SyntaxegetALLSlice.reducer;
+export default SyntaxegetallSlice.reducer;

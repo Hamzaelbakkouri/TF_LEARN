@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSyntaxes } from '../../redux/Slices/getSyntaxes';
-import { Dropdown } from 'primereact/dropdown';
 import Sidebar from '../../components/admin/Sidebar';
+import { useDispatch, useSelector } from 'react-redux';
 import { addExample } from '../../redux/Slices/addexample';
-import { fetchALLSyntaxes } from '../../redux/Slices/get_All_Syntaxes';
+import { fetchallSyntaxes } from '../../redux/Slices/get_All_Syntaxes';
+
+
 
 const Example_insert = () => {
+
     const dispatch = useDispatch();
     const [code, setCode] = useState('// write your code here ....');
     const [role, setRole] = useState(null);
@@ -21,11 +22,11 @@ const Example_insert = () => {
         formdata.append('role', role);
         dispatch(addExample(formdata))
     }
-    
+
     useEffect(() => {
-        dispatch(fetchALLSyntaxes());
+        dispatch(fetchallSyntaxes());
     }, [])
-    const data = useSelector((state) => state.allSyntaxes)
+    const data = useSelector((state) => state.all_Syntaxes)
     useEffect(() => {
         console.log(data);
     }, [data])
@@ -33,10 +34,7 @@ const Example_insert = () => {
     return (
         <div>
             <Sidebar />
-            {/* <div className="card text-black w-52 flex justify-content-center">
-                <Dropdown value={2} onChange={(e) => setSyntaxeID(e.value)} options='hamza' optionLabel="name"
-                    placeholder="Select Syntaxe" className="w-full md:w-14rem" />
-            </div> */}
+
 
             <div className='w-full mt-5 flex justify-center items-center '>
                 <form className="w-full max-w-sm">

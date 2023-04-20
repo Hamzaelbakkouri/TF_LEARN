@@ -1,13 +1,12 @@
 
 import { LockClosedIcon } from '@heroicons/react/solid'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword, loginUser, loginUserSuccess, loginAdminSuccess } from '../redux/Slices/login';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import UserBar from '../components/UserBar';
 import { Toast } from 'primereact/toast';
-import { useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -16,9 +15,6 @@ export default function Login() {
     const cooki = cookies.get('login');
     const toast = useRef(null);
 
-    const showSuccess = (message) => {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
-    }
     const showError = (message) => {
         toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 3000 });
     }
@@ -27,12 +23,16 @@ export default function Login() {
         e.preventDefault();
         try {
             dispatch(loginUser());
-            showSuccess();
-            navigate('/');
         } catch (error) {
             showError('not working');
         }
     };
+    const userdata = useSelector((state) => state.user);
+    useEffect(() => {
+        if (userdata.isLoggedIn) {
+            navigate('/statistique');
+        }
+    })
 
     return (
         <>
@@ -44,7 +44,7 @@ export default function Login() {
                         <img
                             className="mx-auto h-12 w-auto"
                             src="http://cdn.onlinewebfonts.com/svg/img_88236.png"
-                            alt="Your Company"
+                            alt="..."
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                             Login to your account

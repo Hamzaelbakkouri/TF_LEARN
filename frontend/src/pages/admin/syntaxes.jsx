@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Sidebar from "../../components/admin/Sidebar";
-import { fetchALLSyntaxes } from "../../redux/Slices/get_All_Syntaxes";
+import { fetchallSyntaxes } from "../../redux/Slices/get_All_Syntaxes";
 
 
 export default function Syntaxes() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchALLSyntaxes);
+        dispatch(fetchallSyntaxes());
     }, [])
     const data = useSelector((state) => state.syntaxe);
 

@@ -37,9 +37,6 @@ const Syntaxe_insert = () => {
       showError('not added')
     }
   }
-  // useEffect(() => {
-    
-  // }, [])
   const isadding = useSelector((state) => state.Syntaxeadding);
 
   const categories = useSelector((state) => state.language);
@@ -52,7 +49,7 @@ const Syntaxe_insert = () => {
     <>
       <Sidebar />
       <Toast ref={toast} />
-      <h1 className='w-full flex justify-center ml-9 mb-4'> ADD SYNTAXE</h1>
+      <h1 className='w-full flex justify-center ml-9 mb-4 h-screen'> ADD SYNTAXE</h1>
       <div className='w-full flex justify-center items-center '>
 
         <form className="w-full max-w-sm">
