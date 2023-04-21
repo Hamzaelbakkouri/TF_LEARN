@@ -4,12 +4,12 @@ import axios from 'axios';
 export const editlanguage = createAsyncThunk(
     'edit_language/editlanguage',
     async (userData, id) => {
-        const response = await axios.patch('http://127.0.0.1:8000/api/language/updatelanguage/' + id, userData);
+        await axios.patch('http://127.0.0.1:8000/api/language/updatelanguage/' + id, userData);
         return 'done'
     }
 );
 
-export const EditlanguageSlice = createSlice({
+const editLanguageSlice = createSlice({
     name: 'editlanguage',
     initialState: {
         isFetching: false,
@@ -40,3 +40,6 @@ export const EditlanguageSlice = createSlice({
             });
     },
 });
+
+export default editLanguageSlice.reducer;
+

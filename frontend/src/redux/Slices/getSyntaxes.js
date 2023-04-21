@@ -1,34 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useState } from "react";
 
 // Action
-export const fetchSyntaxes = createAsyncThunk('fetchSyntaxes', async () => {
-    const [id, setID] = useState();
-    setID(localStorage.getItem('id_language'));
-    const response = await fetch("http://127.0.0.1:8000/api/syntaxe/getsyntaxe/" + id);
-    return await response.json();
+export const fetchSyntaxe_byid = createAsyncThunk('fetchSyntaxe_byid', async () => {
+    const id = localStorage.getItem('syntaxes_is');
+    const resp = await fetch("http://127.0.0.1:8000/api/getcomment/" + id);
+    return await resp.json();
 })
 
 const SyntaxegetSlice = createSlice({
-    name: "Syntaxes",
+    name: "comments",
     initialState: {
         isLoading: false,
         data: [],
         Error: false
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchSyntaxes.pending, (state) => {
+        builder.addCase(fetchSyntaxe_byid.pending, (state) => {
             state.isLoading = true;
             state.Error = null;
         })
 
-        builder.addCase(fetchSyntaxes.fulfilled, (state, action) => {
+        builder.addCase(fetchSyntaxe_byid.fulfilled, (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
             state.Error = null;
         })
 
-        builder.addCase(fetchSyntaxes.rejected, (state, action) => {
+        builder.addCase(fetchSyntaxe_byid.rejected, (state, action) => {
             console.log("Error", action.payload);
             state.isLoading = false;
             state.Error = action.error.message;

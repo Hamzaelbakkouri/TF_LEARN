@@ -11,7 +11,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const userRegistrationSlice = createSlice({
+const userRegisterSlice = createSlice({
   name: 'userRegistration',
   initialState: {
     isFetching: false,
@@ -42,3 +42,7 @@ export const userRegistrationSlice = createSlice({
       });
   },
 });
+
+
+export default userRegisterSlice.reducer;
+

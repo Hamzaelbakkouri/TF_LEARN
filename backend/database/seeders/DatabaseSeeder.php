@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(6)->create();
-        $file = Storage::disk('local')->get('/data/java.json');
+        $file = Storage::disk('local')->get('/data/html.json');
         $data = json_decode($file, true);
         foreach ($data["matches"] as $value) {
             $i = new Syntaxes([
-                'id_language' => 20,
+                'id_language' => 12,
                 'syntaxe' => $value,
                 'isArchived' => 0
             ]);

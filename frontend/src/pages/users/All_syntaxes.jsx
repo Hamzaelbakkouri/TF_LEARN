@@ -1,189 +1,74 @@
-import React from 'react'
-import UserBar from '../../components/UserBar'
+import { useEffect, useState } from "react";
+import UserBar from "../../components/UserBar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
 
-const All_syntaxes = () => {
+const syntaxes = ['hamza', 'hamza', 'hamza'];
+const chunkSize = 50;
+const syntaxChunks = [];
+
+for (let i = 0; i < syntaxes.length; i += chunkSize) {
+    syntaxChunks.push(syntaxes.slice(i, i + chunkSize));
+}
+
+function SyntaxList() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchSyntaxe_byid());
+    }, [])
+    const data = useSelector((state) => state.syntaxes);
+    useEffect(() => {
+        console.log(data);
+    }, [data])
+
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div>
             <UserBar />
-            <div className='flex justify-evenly'>
-                <ul className="flex flex-col max-h-10 divide-y divide-gray-200 dark:divide-gray-700 min-h-screen w-80 ">
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="pb-3 sm:pb-4">
-                        <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0">
-                                <img className="w-8 h-8 rounded-full" src="https://play-lh.googleusercontent.com/rfWOJQVBHoAZ_B43v0ySFlLmJBLtksVGAxGaFRh2ex4nOmNQ86qzG4sYWV63IKrXlvI" alt="Neil image" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-900">
-                                    JavaScript
-                                </p>
-                                <div className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">
-                                    <span className="inline-flex rounded-full bg-green-100 px-4 py-2 text-sm font-semibold leading-5 text-green-800">
-                                        Splice
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <hr />
-                </ul>
-            </div>
+            <div className="bg-white p-8 min-h-screen">
+                <div className="max-w-5xl mx-auto">
+                    <h1 className="text-3xl font-bold text-gray-800 mb-4">Syntax List</h1>
 
+                    <table className="w-full ">
+                        <thead>
+                            <tr>
+                                <th className="border rounded-md border-gray-400 px-4 py-2">Num</th>
+                                <th className="border rounded-md border-gray-400 px-4 py-2">Syntaxes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {syntaxes.map((syntax, index) => (
+                                <tr key={index} className="border border-gray-400">
+                                    <td className="border border-gray-400 px-4 py-2">{index + 1}</td>
+                                    <td className="border border-gray-400 px-4 py-2">{syntax}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <div className="flex justify-center mt-8">
+                        {syntaxChunks.map((chunk, index) => (
+                            <button
+                                key={index}
+                                className={`${index === currentPage
+                                    ? "rounded-md bg-blue-400 text-white"
+                                    : "bg-white text-gray-700 hover:bg-gray-100"
+                                    } font-bold py-2 px-4 focus:outline-none mx-1`}
+                                onClick={() => handlePageChange(index)}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
 
-export default All_syntaxes
+export default SyntaxList;

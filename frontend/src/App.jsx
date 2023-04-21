@@ -17,6 +17,7 @@ import Syntaxes from "./pages/admin/syntaxes.jsx";
 import Language_page from "./pages/users/Language_page.jsx";
 import Example_insert from "./pages/admin/example_insert.jsx";
 import All_syntaxes from "./pages/users/All_syntaxes.jsx";
+import { RequireAuth } from './components/authcheck.js'
 
 const cooki = new Cookies();
 
@@ -36,7 +37,7 @@ function App() {
         <div className="flex flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Statistique" element={<Statistique />} />
+            <Route path="/Statistique" element={<Statistique />} onEnter={RequireAuth} />
             <Route path="/admin/languages" element={<Language_d />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/addSyntaxe" element={<Syntaxe_insert />} />
