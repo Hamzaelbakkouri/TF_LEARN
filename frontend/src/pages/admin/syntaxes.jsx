@@ -20,7 +20,8 @@ export default function Syntaxes() {
 
     const filtre_syntaxe = (e) => {
         e.preventDefault();
-        dispatch(fetchSyntaxe_byid(filtre));
+        const id = localStorage.getItem('filtre');
+        dispatch(fetchSyntaxe_byid(id));
     }
     const data = useSelector((state) => state.syntaxe);
 
@@ -49,8 +50,11 @@ export default function Syntaxes() {
     const countryOptionTemplate = (option) => {
         return (
             <div onClick={(e) => {
-                setFiltre(option.id)
-                filtre_syntaxe(e);
+                try {
+                    localStorage.setItem('filtre', option.id);
+                } finally {
+                    filtre_syntaxe(e);
+                }
             }} className="flex align-items-center">
                 <img alt={option.nom} src={option.image} className={`mr-2 flag`} style={{ width: '18px' }} />
                 <div>{option.nom}</div>
