@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import UserBar from "../../components/UserBar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
+import Footer from "../../components/footer";
+
 
 const syntaxes = ['hamza', 'hamza', 'hamza'];
 const chunkSize = 50;
@@ -67,6 +69,7 @@ function SyntaxList() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

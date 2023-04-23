@@ -1,6 +1,7 @@
 
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux';
+import Footer from '../components/footer';
 import { setEmail, setPassword, loginUser, loginUserSuccess, loginAdminSuccess } from '../redux/Slices/login';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -99,6 +100,7 @@ export default function Login() {
                     </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { registerUser } from '../redux/Slices/register';
 import { useNavigate } from 'react-router-dom';
 import UserBar from '../components/UserBar';
+import Footer from '../components/footer';
 
 export default function Register() {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function Register() {
 
     return (
         <>
-      <UserBar/>
+            <UserBar />
             <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>
@@ -145,6 +146,7 @@ export default function Register() {
                     </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

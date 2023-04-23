@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchComments } from '../../redux/Slices/getComments';
 import { addcomment } from '../../redux/Slices/sendComment';
 import Cookies from 'universal-cookie';
+import Footer from '../../components/footer';
 
 const Language_page = () => {
   const dispatch = useDispatch();
@@ -121,8 +122,8 @@ const Language_page = () => {
             <button type="submit" onClick={sendComment} className="px-2.5 py-1.5 rounded-md text-white sm:text-sm bg-indigo-500 text-lg" value='Post Comment' >Add Comment</button>
           </div>
         </div>
-
       </div>
+      <Footer />
     </div>
   )
 }

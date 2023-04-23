@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { fetchLanguage } from '../../redux/Slices/language'
-import { useDispatch, useSelector } from 'react-redux';
 import UserBar from '../../components/UserBar';
+import Footer from '../../components/footer';
 
 const Home = () => {
 
@@ -20,6 +19,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

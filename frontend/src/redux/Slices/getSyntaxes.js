@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Action
-export const fetchSyntaxe_byid = createAsyncThunk('fetchSyntaxe_byid', async () => {
-    const id = localStorage.getItem('syntaxes_is');
-    const resp = await fetch("http://127.0.0.1:8000/api/getcomment/" + id);
+export const fetchSyntaxe_byid = createAsyncThunk('fetchSyntaxe_byid', async (id) => {
+    
+    const resp = await fetch("http://127.0.0.1:8000/api/syntaxe/getsyntaxe/" + id);
     return await resp.json();
 })
 
 const SyntaxegetSlice = createSlice({
-    name: "comments",
+    name: "Syntaxes",
     initialState: {
         isLoading: false,
         data: [],

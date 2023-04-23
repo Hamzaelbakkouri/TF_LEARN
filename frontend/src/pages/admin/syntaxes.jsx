@@ -1,15 +1,27 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Sidebar from "../../components/admin/Sidebar";
-import { fetchallSyntaxes } from "../../redux/Slices/get_All_Syntaxes";
+import React, { useState } from "react";
+import { Dropdown } from 'primereact/dropdown';
+import { fetchLanguage } from "../../redux/Slices/language";
+import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
 
 
 export default function Syntaxes() {
-    const dispatch = useDispatch();
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [filtre, setFiltre] = useState(null);
 
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchallSyntaxes());
+        dispatch(fetchLanguage());
     }, [])
+    const language = useSelector((state) => state.language.data)
+
+    const filtre_syntaxe = (e) => {
+        e.preventDefault();
+        dispatch(fetchSyntaxe_byid(filtre));
+    }
     const data = useSelector((state) => state.syntaxe);
 
     if (data.isLoading) {
@@ -20,12 +32,42 @@ export default function Syntaxes() {
             </div>
         )
     }
+
+    const selectedCountryTemplate = (option, props) => {
+        if (option) {
+            return (
+                <div className="flex align-items-center">
+                    <img alt={option.nom} src={option.image} className={`mr-2 flag`} style={{ width: '18px' }} />
+                    <div>{option.nom}</div>
+                </div>
+            );
+        }
+
+        return <span>{props.placeholder}</span>;
+    };
+
+    const countryOptionTemplate = (option) => {
+        return (
+            <div onClick={(e) => {
+                setFiltre(option.id)
+                filtre_syntaxe(e);
+            }} className="flex align-items-center">
+                <img alt={option.nom} src={option.image} className={`mr-2 flag`} style={{ width: '18px' }} />
+                <div>{option.nom}</div>
+            </div>
+        );
+    };
+
     return (
         <div>
             <Sidebar />
+            <div className="card flex justify-content-center w-64">
+                <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={language} optionLabel="name" placeholder="Select a Country"
+                    filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
+            </div>
             <div className="w-[100%] mt-20 md:pr-10 flex flex-wrap md:justify-end items-center ">
                 <div className="px-2 sm:px-6 lg:px-4 w-[80%]">
-                    <h2>USERS</h2>
+                    <h2>Syntaxes</h2>
                     <hr />
                     <div className="mt-8 flex flex-col">
                         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -59,10 +101,6 @@ export default function Syntaxes() {
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                         {syntaxe.id_language}
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        <button className="text-red-500 mr-8">Delete</button>
-                                                        <button className="text-blue-400">Edit</button>
                                                     </td>
                                                 </tr>
                                             ))}

@@ -37,7 +37,7 @@ function App() {
         <div className="flex flex-col">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Statistique" element={<Statistique />} onEnter={RequireAuth} />
+            <Route path="/Statistique" element={<Statistique />} />
             <Route path="/admin/languages" element={<Language_d />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/addSyntaxe" element={<Syntaxe_insert />} />
@@ -49,7 +49,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
-          {(role !== 0) ? <Footer /> : ''}
         </div>
       </BrowserRouter>
     </div>
