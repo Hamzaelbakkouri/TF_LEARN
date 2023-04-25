@@ -1,13 +1,20 @@
-import React from 'react'
-import Footer from '../components/footer';
+import React, { useState } from 'react'
+import UserBar from '../../components/UserBar';
 
 
 const Syntaxe_example = () => {
+  const [data, setData] = useState();
+
   return (
     <div>
       <UserBar/>
-      example
-      <Footer />
+      <div>
+        {data.map((item) => {
+          <div key={item.id}>
+            hamza
+          </div>
+        })}
+      </div>
     </div>
   )
 }

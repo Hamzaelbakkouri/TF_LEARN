@@ -24,6 +24,7 @@
     "cloudinary-react": "^1.8.1",
     "heroicons": "^2.0.17",
     "mdb-react-ui-kit": "^6.0.0",
+    "mdbreact": "^5.2.0",
     "primeicons": "^6.0.1",
     "primereact": "^9.2.3",
     "react": "^18.2.0",

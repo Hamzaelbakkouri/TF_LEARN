@@ -9,6 +9,7 @@ import AddsyntaxeSlice from './Slices/AddSyntaxe'
 import SyntaxegetSlice from './Slices/getSyntaxes';
 import CommentgetSlice from './Slices/getComments';
 import SyntaxegetALLSlice from './Slices/get_All_Syntaxes';
+import ExamplegetSlice from './Slices/getexample';
 
 export const store = configureStore({
     reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
         Syntaxeadding: AddsyntaxeSlice,
         registerslice: userRegisterSlice,
         editlanguage: editLanguageSlice,
+        examples: ExamplegetSlice,
     },
 })

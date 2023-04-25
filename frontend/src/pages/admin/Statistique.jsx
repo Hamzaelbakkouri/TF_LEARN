@@ -5,6 +5,7 @@ import Sidebar from '../../components/admin/Sidebar'
 import { Toast } from 'primereact/toast'
 import { useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
+import { useNavigate } from 'react-router-dom'
 
 const stats = [
   { id: 1, name: 'Languages', stat: '71,897', icon: UsersIcon, change: '122', changeType: 'increase' },
@@ -17,23 +18,20 @@ function classNames(...classes) {
 }
 
 export default function Statistique() {
-  const toast = useRef(null);
   const Cookie = new Cookies();
   const cooki = Cookie.get('login');
+  const navigate = useNavigate();
 
-  const showSuccess = (message) => {
-    toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
-  }
   useEffect(() => {
-    if (cooki.role == 0) {
-      showSuccess();
-    }
-  }, [])
+    cooki ?
+      console.log(cooki.user)
+      :
+      navigate('/login');
+  }, [cooki])
 
   return (
     <div>
       <Sidebar />
-      <Toast ref={toast} />
       <dl className="mt-5  flex justify-center gap-5 flex-wrap">
         {stats.map((item) => (
           <div

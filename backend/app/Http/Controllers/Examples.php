@@ -10,7 +10,7 @@ class Examples extends Controller
     public function get_S_examples($id)
     {
         $example = example::where('id_syntaxe', $id)->orderBy('created_at', 'desc')->get();
-        $example->get();
+        return $example;
     }
 
     public function addexample(Request $request)

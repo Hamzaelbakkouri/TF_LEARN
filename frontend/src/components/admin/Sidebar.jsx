@@ -40,9 +40,8 @@ export default function Sidebar() {
     const cooki = new Cookies();
     const cook = cooki.get('login');
 
-    // console.log(cook);
-
-    const Logout = () => {
+    const Logout = (e) => {
+        e.preventDefault();
         cooki.remove('login');
         navige('/login');
     }

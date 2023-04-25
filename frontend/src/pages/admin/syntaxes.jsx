@@ -5,11 +5,12 @@ import React, { useState } from "react";
 import { Dropdown } from 'primereact/dropdown';
 import { fetchLanguage } from "../../redux/Slices/language";
 import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
+import { MDBDataTable } from 'mdbreact';
 
 
 export default function Syntaxes() {
     const [selectedCountry, setSelectedCountry] = useState(null);
-    const [filtre, setFiltre] = useState(null);
+    const [filtre, setFiltre] = useState(1);
 
 
     const dispatch = useDispatch();
@@ -18,13 +19,13 @@ export default function Syntaxes() {
     }, [])
     const language = useSelector((state) => state.language.data)
 
-    const filtre_syntaxe = (e) => {
-        e.preventDefault();
-        const id = localStorage.getItem('filtre');
-        dispatch(fetchSyntaxe_byid(id));
-    }
-    const data = useSelector((state) => state.syntaxe);
+    useEffect(() => {
+        dispatch(fetchSyntaxe_byid(filtre));
+    }, [filtre])
 
+    const data = useSelector((state) => state.syntaxe.data);
+    const data2 = [];
+    data2.push(data);
     if (data.isLoading) {
         return (
             <div role="status" className='w-full h-screen  flex justify-center items-center'>
@@ -49,73 +50,67 @@ export default function Syntaxes() {
 
     const countryOptionTemplate = (option) => {
         return (
-            <div onClick={(e) => {
-                try {
-                    localStorage.setItem('filtre', option.id);
-                } finally {
-                    filtre_syntaxe(e);
-                }
-            }} className="flex align-items-center">
+            <div onClick={() => setFiltre(option.id)} className="flex align-items-center">
                 <img alt={option.nom} src={option.image} className={`mr-2 flag`} style={{ width: '18px' }} />
                 <div>{option.nom}</div>
             </div>
         );
     };
 
+
+    const datas = {
+        columns: [
+            {
+                label: 'Syntaxe',
+                field: 'syntaxe',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'IsArchived',
+                field: 'isArchived',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Created_at',
+                field: 'created_at',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'languageID',
+                field: 'id_language',
+                sort: 'asc',
+                width: 150
+            },
+        ],
+        rows: data2[0]
+    }
+
+    if (!data) {
+        return (
+            <div>
+                not found
+            </div>
+        )
+    }
     return (
         <div>
             <Sidebar />
-            <div className="card flex justify-content-center w-64">
-                <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={language} optionLabel="name" placeholder="Select a Country"
+            <div className="w-64 md:w-8/12 md:ml-80 flex flex-col">
+                <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={language} optionLabel="name" placeholder="Select a Language"
                     filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
             </div>
-            <div className="w-[100%] mt-20 md:pr-10 flex flex-wrap md:justify-end items-center ">
-                <div className="px-2 sm:px-6 lg:px-4 w-[80%]">
-                    <h2>Syntaxes</h2>
-                    <hr />
-                    <div className="mt-8 flex flex-col">
-                        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                                    <table className="min-w-full divide-y divide-gray-300 sm:flex-wrap">
-                                        <thead className="bg-gray-50">
-                                            <tr>
-                                                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                    Syntaxe
-                                                </th>
-                                                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                    isArchived
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    id_language
-                                                </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                    Action
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white">
-                                            {data.data.map((syntaxe) => (
-                                                <tr key={syntaxe.id}>
-                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                        {syntaxe.syntaxe}
-                                                    </td>
-                                                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                        {syntaxe.isArchived === 0 ? 'Not Archived' : 'Archived'}
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                        {syntaxe.id_language}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="sm:overflow-x-auto md:w-8/12 md:ml-80 flex flex-col">
+                <MDBDataTable
+                    onClick={console.log('hamza')}
+                    striped
+                    bordered
+                    small
+                    data={datas}
+                />
             </div>
         </div>
-    )
+    );
 }

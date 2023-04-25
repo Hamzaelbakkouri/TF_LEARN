@@ -30,10 +30,8 @@ export default function Login() {
     };
     const userdata = useSelector((state) => state.user);
     useEffect(() => {
-        if (userdata.isLoggedIn) {
-            navigate('/statistique');
-        }
-    })
+        userdata.isLoggedIn ? navigate('/') : navigate('/login')
+    }, [userdata])
 
     return (
         <>

@@ -14,8 +14,9 @@ export const loginUser = () => async (dispatch, getState) => {
     try {
         const { status, data: res } = await axios.post('http://127.0.0.1:8000/api/login', data);
         cooki.set('login', res);
+        localStorage.setItem('role', res.user.role);
 
-        if (status === 200) {   
+        if (status === 200) {
             dispatch(loginUserSuccess());
         } else {
             dispatch(loginUserFailure(res.message));
@@ -30,13 +31,12 @@ const initialState = {
     password: '',
     isLoggedIn: false,
     isLoading: false,
-    isAdmin: false,
     error: null,
 };
 
-const userSlice = 
+const userSlice =
     createSlice({
-        
+
         name: 'user',
         initialState,
         reducers: {
@@ -52,13 +52,6 @@ const userSlice =
             loginUserSuccess: (state) => {
                 state.isLoading = false;
                 state.isLoggedIn = true;
-                state.isAdmin = false;
-                state.error = null;
-            },
-            loginAdminSuccess: (state) => {
-                state.isLoading = false;
-                state.isLoggedIn = true;
-                state.isAdmin = true;
                 state.error = null;
             },
             loginUserFailure: (state, action) => {
@@ -72,8 +65,8 @@ const userSlice =
         },
     });
 
-    export const {
-        setUsername,
+export const {
+    setUsername,
     setEmail,
     setPassword,
     loginUserStart,

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon , UserIcon} from '@heroicons/react/outline'
+import { BellIcon, MenuIcon, XIcon, UserIcon } from '@heroicons/react/outline'
 import Cookies from 'universal-cookie'
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const user = {
     name: 'hamza',
     email: 'hamza@gmail.com',
     imageUrl:
-    'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
+        'https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png',
 }
 const navigation1 = [
     { name: 'Home', href: '/', current: true },
@@ -24,7 +24,7 @@ const navigation1 = [
 const navigation2 = [
     { name: 'Home', href: '/', current: true },
     { name: 'About', href: '/about', current: false },
-    
+
 ]
 const userNavigation1 = [
     { name: 'Your Profile', href: '#' },
@@ -42,9 +42,12 @@ function classNames(...classes) {
 
 export default function Example() {
     const navigate = useNavigate('/');
-    
+
     const logout = () => {
+        // e.preventDefault();
+        console.log('hamza');
         cookies.remove('login');
+        localStorage.removeItem('role');
         navigate('/');
     }
     return (
@@ -118,12 +121,12 @@ export default function Example() {
                                                                                 {item.name}
                                                                             </NavLink>
                                                                         )}
-                                                                        
+
                                                                     </Menu.Item>
                                                                 ))}
-                                                                {cooki ?<a onClick={()=>logout()} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer'>
-                                                                            Logout
-                                                                        </a>: ''}
+                                                                {cooki ? <a onClick={logout} className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer'>
+                                                                    Logout
+                                                                </a> : ''}
                                                             </Menu.Items>
                                                         </Transition>
                                                     </Menu>

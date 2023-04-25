@@ -1,9 +1,25 @@
 import React, { useEffect } from 'react'
 import UserBar from '../../components/UserBar';
 import Footer from '../../components/footer';
+import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-
+    const Cookie = new Cookies();
+    const cooki = Cookie.get('login');
+    const navigate = useNavigate();
+    console.log();
+    useEffect(() => {
+        if (cooki) {
+            cooki.user.role === 0
+                ?
+                navigate('/statistique')
+                :
+                navigate('/');
+        } else {
+            navigate('/');
+        }
+    }, [cooki])
     return (
         <div>
             <UserBar />
