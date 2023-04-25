@@ -75,7 +75,7 @@ export default function Syntaxes() {
     if (!data) {
         return (
             <div>
-                not found
+                Not Found
             </div>
         )
     }
