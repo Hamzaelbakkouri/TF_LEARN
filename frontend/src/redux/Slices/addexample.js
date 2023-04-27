@@ -42,4 +42,5 @@ const AddexampleSlice = createSlice({
             });
     },
 });
+
 export default AddexampleSlice.reducer;

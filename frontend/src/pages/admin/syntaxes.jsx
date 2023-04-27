@@ -7,6 +7,7 @@ import { fetchLanguage } from "../../redux/Slices/language";
 import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
 import { MDBDataTable } from 'mdbreact';
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 
 export default function Syntaxes() {
@@ -58,6 +59,14 @@ export default function Syntaxes() {
         );
     };
 
+    const Delete = async (e) => {
+        e.preventDefault();
+        await axios.delete('')
+            .then(() => {
+                dispatch(fetchSyntaxe_byid(selectedCountry))
+            })
+    }
+
 
     const datas = {
         columns: [
@@ -104,12 +113,16 @@ export default function Syntaxes() {
             Created_at: item.created_at,
             Id_language: item.id_language,
             button: (
-                <NavLink to='/admin/addExample' onClick={() => localStorage.setItem('add_example', item.id)}>
-                    Add Example
+                <NavLink className="relative inline-flex items-center justify-center p-4 px-3 py-2 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group" to='/admin/addExample' onClick={() => localStorage.setItem('add_example', item.id)}>
+                    <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span className="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease">Button Text</span>
+                    <span className="relative invisible">Add Example</span>
                 </NavLink>
             ),
             delete: (
-                <NavLink className="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+                <NavLink onClick={() => Delete(item.id)} className="relative inline-flex items-center justify-start px-4 py-2 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
                     <span className="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
                         <span className="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
                     </span>
@@ -134,9 +147,8 @@ export default function Syntaxes() {
                 <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={language} optionLabel="name" placeholder="Select a Language"
                     filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
             </div>
-            <div className="sm:overflow-x-auto md:w-8/12 md:ml-80 flex flex-col shadow border-collapse px-4">
+            <div className="md:w-8/12 md:ml-80 flex flex-col shadow border-collapse px-4 overflow-x-auto">
                 <MDBDataTable
-                    onClick={console.log('hamza')}
                     striped
                     bordered
                     small
