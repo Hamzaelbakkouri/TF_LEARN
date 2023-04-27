@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon, UserIcon } from '@heroicons/react/outline'
 import Cookies from 'universal-cookie'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const cookies = new Cookies();
 const cooki = cookies.get('login');
@@ -18,7 +18,7 @@ const navigation1 = [
     { name: 'Home', href: '/', current: true },
     { name: 'About', href: '/about', current: false },
     { name: 'Favorites', href: '/favorite', current: false },
-    { name: 'Languages', href: '/languges_posts', current: false },
+    { name: 'Languages', href: '/languge_post', current: false },
 ]
 
 const navigation2 = [
@@ -28,7 +28,6 @@ const navigation2 = [
 ]
 const userNavigation1 = [
     { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
 ]
 
 const userNavigation2 = [
@@ -41,14 +40,11 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-    const navigate = useNavigate('/');
 
     const logout = () => {
-        // e.preventDefault();
-        console.log('hamza');
         cookies.remove('login');
         localStorage.removeItem('role');
-        navigate('/');
+        window.location.href = '/';
     }
     return (
         <>

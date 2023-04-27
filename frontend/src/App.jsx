@@ -20,6 +20,7 @@ import All_syntaxes from "./pages/users/All_syntaxes.jsx";
 import Syntaxe_example from "./pages/users/Syntaxe_example.jsx";
 import { Toast } from "primereact/toast";
 import { useSelector } from "react-redux";
+import Favorites from "./pages/users/Favorites.jsx";
 
 const cookies = new Cookies();
 const cooki = localStorage.getItem('role');
@@ -52,9 +53,10 @@ function App() {
             <Route path="/admin/addSyntaxe" element={cooki != 0 ? <Home /> : <Syntaxe_insert />} />
             <Route path="/admin/addExample" element={cooki != 0 ? <Home /> : <Example_insert />} />
             <Route path="/admin/syntaxes" element={cooki != 0 ? <Home /> : <Syntaxes />} />
-            <Route path="/languges_posts" element={cooki != 0 ? <Login /> : <Language_page />} />
+            <Route path="/languge_post" element={<Language_page />} />
             <Route path="/example_page" element={<Syntaxe_example />} />
             <Route path="/all_syntaxes" element={<All_syntaxes />} />
+            <Route path="/favorite" element={<Favorites />} />  
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

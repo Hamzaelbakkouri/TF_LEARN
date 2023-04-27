@@ -55,13 +55,13 @@ class Users extends Controller
 
     public function ajouterFavorie(Request $request)
     {
-        $count = Favorie::select('id_syntaxe', 'id_user')
-            ->where('id_syntaxe', '=', $request->id_syntaxe)
+        $count = Favorie::select('id_language', 'id_user')
+            ->where('id_language', '=', $request->id_syntaxe)
             ->where('id_user', '=', $request->id_user)
             ->count();
         if ($count == 0) {
             $favorie = new Favorie();
-            $favorie->id_livre = $request->input('id_livre');
+            $favorie->id_language = $request->input('id_language');
             $favorie->id_user = $request->input('id_user');
             $favorie->save();
             return "added";
@@ -74,7 +74,7 @@ class Users extends Controller
     {
         return Favorie::select('Syntaxes.id', 'Syntaxes.nom AS nom_Syntaxes', 'Syntaxes.image', 'Syntaxes.pdf', 'Syntaxes.created_at', 'Languages.nom AS nom_cat', 'favories.id as id_favorie')
             ->join('Languages', 'Syntaxes.id_cat', '=', 'Languages.id')
-            ->join('favories', 'favories.id_livre', '=', 'Syntaxes.id')
+            ->join('favories', 'favories.id_syntaxe', '=', 'Syntaxes.id')
             ->where('Syntaxes.isArchived', '=', 0)
             ->where('favories.id_user', '=', $id)
             ->get();

@@ -7,11 +7,11 @@ import { fetchSyntaxe_byid } from "../../redux/Slices/getSyntaxes";
 import { MDBDataTable } from 'mdbreact';
 import UserBar from "../../components/UserBar";
 import { NavLink } from "react-router-dom";
-
+import { Button } from 'primereact/button';
 
 export default function Syntaxes() {
     const [selectedCountry, setSelectedCountry] = useState(null);
-    const [filtre, setFiltre] = useState(1);
+    const [filtre, setFiltre] = useState(localStorage.getItem('syntaxes_is'));
 
 
     const dispatch = useDispatch();
@@ -44,11 +44,29 @@ export default function Syntaxes() {
                 label: 'Syntaxe',
                 field: 'syntaxe',
                 sort: 'desc',
-                width: 150
+                width: 150,
+            },
+            {
+                label: 'Example',
+                field: 'button',
+                sort: 'desc',
+                width: 150,
             },
         ],
-        rows: data2[0],
-    }
+        rows: data2[0].map((item, index) => ({
+            syntaxe: item.syntaxe,
+            button: (
+                <NavLink className="relative inline-flex items-center px-10 py-1 overflow-hidden text-lg font-medium text-indigo-600 border-2 border-indigo-600 rounded-full hover:text-white group hover:bg-gray-50" to='/example_page' onClick={() => localStorage.setItem('example_id', item.id)}>
+                    <span class="absolute left-0 block w-full h-0 transition-all bg-indigo-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                    <span class="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                    <span class="relative">Button Text</span>
+
+                </NavLink>
+            ),
+        })),
+    };
 
     const selectedCountryTemplate = (option, props) => {
         if (option) {
@@ -80,17 +98,18 @@ export default function Syntaxes() {
         )
     }
     return (
-        <div>
+        <div className="w-full flex flex-col">
             <UserBar />
-            <div className="w-64 ">
+            <div className="w-64">
                 <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={language} optionLabel="name" placeholder="Select a Language"
                     filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
             </div>
-            <div className="sm:overflow-x-auto p-10">
+            <div className="sm:overflow-x-auto p-10 shadow w-[90%] md:ml-24">
                 <MDBDataTable
                     striped
                     small
                     data={datas}
+
                 />
             </div>
         </div>

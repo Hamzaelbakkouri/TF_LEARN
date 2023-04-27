@@ -25,7 +25,6 @@ const navigation = [
 const secondaryNavigation = [
     { name: 'Syntaxes', href: '/admin/syntaxes', icon: CodeIcon },
     { name: 'Add Syntaxe', href: '/admin/addSyntaxe', icon: DocumentAddIcon },
-    { name: 'Add Example', href: '/admin/addExample', icon: ViewGridAddIcon },
 ]
 
 function classNames(...classes) {

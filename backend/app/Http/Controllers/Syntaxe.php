@@ -25,7 +25,7 @@ class Syntaxe extends Controller
         $Syntaxes->update();
         return 'deleted';
     }
-    
+
     function getsyntaxe_byLanguage($id)
     {
         $Syntaxes = Syntaxes::where('id_language', $id)->orderBy('created_at', 'desc')->get();

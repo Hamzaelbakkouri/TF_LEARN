@@ -8,12 +8,11 @@ const Home = () => {
     const Cookie = new Cookies();
     const cooki = Cookie.get('login');
     const navigate = useNavigate();
-    console.log();
     useEffect(() => {
         if (cooki) {
             cooki.user.role === 0
                 ?
-                navigate('/statistique')
+                window.location.href = '/statistique'
                 :
                 navigate('/');
         } else {

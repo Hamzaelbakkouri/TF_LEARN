@@ -11,7 +11,7 @@ export const addExample = createAsyncThunk(
     }
 );
 
-export const AddsyntaxeSlice = createSlice({
+const AddexampleSlice = createSlice({
     name: 'addExample',
     initialState: {
         isFetching: false,
@@ -40,5 +40,6 @@ export const AddsyntaxeSlice = createSlice({
                 state.isError = true;
                 state.errorMessage = action.payload.message;
             });
-    },  
+    },
 });
+export default AddexampleSlice.reducer;

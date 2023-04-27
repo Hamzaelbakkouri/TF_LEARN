@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from '../../components/admin/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExample } from '../../redux/Slices/addexample';
-import { fetchallSyntaxes } from '../../redux/Slices/get_All_Syntaxes';
-
-
+import { Toast } from 'primereact/toast';
 
 const Example_insert = () => {
 
+    const toast = useRef(null);
     const dispatch = useDispatch();
     const [code, setCode] = useState('// write your code here ....');
     const [role, setRole] = useState(null);
     const [example, setExample] = useState('');
-    const [syntaxeID, setSyntaxeID] = useState(null);
+    const [syntaxeID, setSyntaxeID] = useState();
+
+    const showSuccess = (message) => {
+        toast.current.show({ severity: 'success', summary: 'Success', detail: message, life: 3000 });
+    }
+    const showError = (message) => {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: message, life: 3000 });
+    }
 
     const InsertExample = (e) => {
         e.preventDefault();
+        setSyntaxeID(localStorage.getItem('add_example'));
         const formdata = new FormData();
         formdata.append('example', example);
         formdata.append('id_syntaxe', syntaxeID);
         formdata.append('role', role);
         dispatch(addExample(formdata))
     }
-
-    useEffect(() => {
-        dispatch(fetchallSyntaxes());
-    }, [])
-    const data = useSelector((state) => state.all_Syntaxes)
-    useEffect(() => {
-        console.log(data);
-    }, [data])
+    const isAdded = useSelector((state) => state.example_add.isSuccess)
+    if (isAdded) {
+        isAdded ? showSuccess('added success') : showError('not added');
+    }
 
     return (
         <div>
             <Sidebar />
-
-
+            <Toast ref={toast} />
             <div className='w-full mt-5 flex justify-center items-center '>
                 <form className="w-full max-w-sm">
                     <h1 className='w-full flex justify-center ml-9 mb-4'>ADD EXAMPLE TITLE</h1>

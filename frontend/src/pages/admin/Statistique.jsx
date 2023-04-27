@@ -1,16 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid'
 import { CursorClickIcon, MailOpenIcon, UsersIcon } from '@heroicons/react/outline'
 import Sidebar from '../../components/admin/Sidebar'
-import { Toast } from 'primereact/toast'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import Cookies from 'universal-cookie'
 import { useNavigate } from 'react-router-dom'
 
 const stats = [
-  { id: 1, name: 'Languages', stat: '71,897', icon: UsersIcon, change: '122', changeType: 'increase' },
-  { id: 2, name: 'Syntaxes', stat: '58.16%', icon: MailOpenIcon, change: '5.4%', changeType: 'increase' },
-  { id: 3, name: 'Likes', stat: '24.57%', icon: CursorClickIcon, change: '3.2%', changeType: 'decrease' },
+  { id: 1, name: 'Languages', stat: '13', icon: UsersIcon },
+  { id: 2, name: 'Syntaxes', stat: '3321', icon: MailOpenIcon },
+  { id: 3, name: 'Likes', stat: '5', icon: CursorClickIcon },
 ]
 
 function classNames(...classes) {
@@ -23,10 +21,11 @@ export default function Statistique() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    cooki ?
-      console.log(cooki.user)
+    cooki.user.role !== 0 ?
+      // console.log(cooki.user)
+      navigate('/')
       :
-      navigate('/login');
+      navigate('/statistique');
   }, [cooki])
 
   return (
@@ -52,13 +51,6 @@ export default function Statistique() {
                   'ml-2 flex items-baseline text-sm font-semibold'
                 )}
               >
-                {item.changeType === 'increase' ? (
-                  <ArrowSmUpIcon className="self-center flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
-                ) : (
-                  <ArrowSmDownIcon className="self-center flex-shrink-0 h-5 w-5 text-red-500" aria-hidden="true" />
-                )}
-
-                <span className="sr-only">{item.changeType === 'increase' ? 'Increased' : 'Decreased'} by</span>
                 {item.change}
               </p>
               <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">

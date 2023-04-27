@@ -29,6 +29,7 @@ Route::get('/syntaxe/get_ALL_example/', [admin::class, 'getSyntaxes']);
 Route::delete('/language/deletelanguage/{id}', [Language::class, 'supprimerCat']);
 Route::post('/language/addlanguage', [Language::class, 'addCat']);
 Route::patch('/language/updatelanguage/{id}', [Language::class, 'modifierCat']);
+Route::get('/language/getLanguageID/{id}', [Language::class, 'languageGET']);
 
 // comments
 Route::get('/getcomment/{id}', [Comment::class, 'getcomments']);
